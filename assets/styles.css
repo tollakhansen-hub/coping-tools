@@ -84,3 +84,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
   :root{--paper:#181c19;--ink:#f0f1eb;--muted:#b6bbb4;--line:#414641;--accent:#84bdb6;--accent-dark:#a8d7d1;--focus:#9cd8d0}
   .lede{color:#e2e5df}.trust p,.trust li{color:#c3c8c1}
 }
+
+.home-explainer{margin-top:34px;border-top:1px solid var(--line);padding-top:22px}
+.home-explainer h2,.related h2{font-size:1.1rem;margin:0 0 .55rem}
+.home-explainer p{font-size:1rem;color:var(--muted);max-width:40rem}
+.related{margin-top:34px;border-top:1px solid var(--line);padding-top:22px}
+.related-links{display:flex;flex-wrap:wrap;gap:8px 20px;list-style:none;padding:0;margin:.5rem 0 0}
+.related-links li{margin:0}
+.related-links a{font-weight:700}
