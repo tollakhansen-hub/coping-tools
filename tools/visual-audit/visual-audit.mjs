@@ -71,6 +71,7 @@ const browser = await chromium.launch({
     '--disable-gpu',
     '--disable-dev-shm-usage',
     '--jitless',
+    '--jitless',
     '--hide-scrollbars',
   ],
 });
