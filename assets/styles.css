@@ -92,3 +92,67 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .related-links{display:flex;flex-wrap:wrap;gap:8px 20px;list-style:none;padding:0;margin:.5rem 0 0}
 .related-links li{margin:0}
 .related-links a{font-weight:700}
+
+
+/* Route-page section markers — clear chapter breaks without cards */
+.tool-page .route-intro{margin-bottom:2.4rem}
+.tool-page .tool-section{
+  position:relative;
+  border-top:0;
+  margin-top:1.25rem;
+  padding:3.35rem 0 1.15rem;
+}
+.tool-page .tool-section::before{
+  content:"";
+  position:absolute;
+  top:1.8rem;
+  left:0;
+  width:3.4rem;
+  height:3px;
+  background:var(--accent);
+}
+.tool-page .tool-section h2{
+  margin:0 0 .55rem;
+  font-size:.79rem;
+  line-height:1.2;
+  letter-spacing:.085em;
+  text-transform:uppercase;
+  color:var(--accent-dark);
+  font-weight:780;
+}
+.tool-page .tool-title{
+  margin:.1rem 0 .9rem;
+  font-size:1.27rem;
+  line-height:1.25;
+  letter-spacing:-.015em;
+  font-weight:760;
+  color:var(--ink);
+}
+.tool-page .tool-section + .tool-section{
+  margin-top:.75rem;
+}
+.tool-page .related{
+  margin-top:4.25rem;
+  border-top:3px solid var(--accent);
+  padding-top:1.35rem;
+}
+.tool-page .related h2{
+  font-size:1.12rem;
+  margin:0 0 .65rem;
+}
+.tool-page .trust{
+  margin-top:2.4rem;
+  border-top:1px solid var(--line);
+  padding-top:1.45rem;
+}
+.tool-page .sources{
+  margin-top:2.1rem;
+  border-top:1px solid var(--line);
+  padding-top:1.4rem;
+}
+@media (max-width:520px){
+  .tool-page .route-intro{margin-bottom:2rem}
+  .tool-page .tool-section{padding-top:3.05rem}
+  .tool-page .tool-section::before{top:1.62rem;width:3rem}
+  .tool-page .related{margin-top:3.7rem}
+}
