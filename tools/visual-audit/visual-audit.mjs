@@ -97,7 +97,8 @@ for (const url of urls) {
       let response = null;
       let navError = null;
       try {
-        response = await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+        response = await page.goto(url, { waitUntil: 'load', timeout: 15000 });
+        await page.waitForTimeout(300);
       } catch (e) {
         navError = e.message;
       }
@@ -192,7 +193,9 @@ for (const url of urls) {
         ...audit,
       });
       await context.close();
-      process.stdout.write(`✓ ${url} ${vp.name} ${scheme}\n`);
+      process.stdout.write(navError
+        ? `✗ ${url} ${vp.name} ${scheme} — ${navError}\n`
+        : `✓ ${url} ${vp.name} ${scheme}\n`);
     }
   }
 }
