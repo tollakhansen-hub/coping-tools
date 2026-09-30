@@ -234,3 +234,9 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
     margin-top:2.6rem;
   }
 }
+
+/* Footer contact — simple, human, and deliberately not a card */
+.footer-contact{max-width:36rem;margin:0 0 22px;padding-top:18px;border-top:1px solid var(--line)}
+.footer-contact h2{margin:0 0 .35rem;font-size:1rem;line-height:1.25;letter-spacing:0;font-weight:740}
+.footer-contact p{margin:.28rem 0;font-size:.94rem;line-height:1.5;color:var(--muted)}
+.footer-contact a{color:var(--accent-dark);font-weight:720}
