@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&family=Literata:opsz,wght@7..72,200..900&display=swap');
+
 /* coping.tools — first static build */
 :root{
   --paper:#f7f4ed;
@@ -10,7 +12,7 @@
   --max:44rem;
 }
 *{box-sizing:border-box}
-html{background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.58;text-rendering:optimizeLegibility;-webkit-text-size-adjust:100%}
+html{background:var(--paper);color:var(--ink);font-family:"Atkinson Hyperlegible Next",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.56;text-rendering:optimizeLegibility;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);min-height:100vh}
 .skip-link{position:fixed;left:12px;top:10px;z-index:100;background:var(--ink);color:var(--paper);padding:8px 12px;transform:translateY(-160%);text-decoration:none;font-weight:700}
 .skip-link:focus{transform:translateY(0)}
@@ -22,15 +24,15 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offs
 .site-head{padding:22px 0 12px}
 .wordmark{font-weight:750;letter-spacing:-.02em;font-size:1.02rem;text-decoration:none;color:var(--ink)}
 main{padding:30px 0 54px}
-.hero{max-width:39rem;margin-bottom:24px}
+.hero{max-width:39rem;margin-bottom:16px}
 h1,h2,h3{line-height:1.15;letter-spacing:-.025em;color:var(--ink)}
-h1{font-size:clamp(2.15rem,9vw,3.35rem);margin:.1em 0 .28em;font-weight:760}
+h1{font-family:"Literata",Georgia,serif;font-optical-sizing:auto;font-size:clamp(2.15rem,9vw,3.35rem);margin:.1em 0 .28em;font-weight:650;letter-spacing:-.018em}
 h2{font-size:1.45rem;margin:2.25rem 0 .6rem;font-weight:740}
 h3{font-size:1.08rem;margin:1.4rem 0 .3rem;font-weight:720}
 p{margin:.65rem 0 1rem;font-size:1.08rem}
-.lede{font-size:1.2rem;max-width:36rem;color:#2d342f;margin:.2rem 0 .7rem}
+.lede{font-size:1.12rem;max-width:36rem;color:#2d342f;margin:.15rem 0 .45rem}
 .quiet{color:var(--muted)}
-.routes{margin:30px 0 34px;border-top:1px solid var(--line)}
+.routes{margin:22px 0 30px;border-top:1px solid var(--line)}
 .route{display:grid;grid-template-columns:36px 1fr 22px;gap:12px;align-items:center;padding:19px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;min-height:88px}
 .route:hover .route-title{text-decoration:underline;text-decoration-thickness:.08em;text-underline-offset:.17em}
 .route-title{display:block;font-weight:750;font-size:1.13rem;letter-spacing:-.01em}
@@ -85,9 +87,9 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
   .lede{color:#e2e5df}.trust p,.trust li{color:#c3c8c1}
 }
 
-.home-explainer{margin-top:34px;border-top:1px solid var(--line);padding-top:22px}
+.home-explainer{margin-top:28px;border-top:1px solid var(--line);padding-top:18px}
 .home-explainer h2,.related h2{font-size:1.1rem;margin:0 0 .55rem}
-.home-explainer p{font-size:1rem;color:var(--muted);max-width:40rem}
+.home-explainer p{font-size:.96rem;line-height:1.5;color:var(--muted);max-width:40rem}
 .related{margin-top:34px;border-top:1px solid var(--line);padding-top:22px}
 .related-links{display:flex;flex-wrap:wrap;gap:8px 20px;list-style:none;padding:0;margin:.5rem 0 0}
 .related-links li{margin:0}
@@ -95,17 +97,30 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 
 
 /* Route-page section markers — clear chapter breaks without cards */
-.tool-page .route-intro{margin-bottom:2.4rem}
+.tool-page h1{
+  font-size:clamp(2rem,7.6vw,2.8rem);
+  margin-bottom:.28em;
+}
+.tool-page .route-intro{
+  margin:.15rem 0 1.25rem;
+  font-size:1.06rem;
+  line-height:1.5;
+}
+.tool-page .route-intro br + br{
+  content:"";
+  display:block;
+  margin-top:.42rem;
+}
 .tool-page .tool-section{
   position:relative;
   border-top:0;
-  margin-top:1.25rem;
-  padding:3.35rem 0 1.15rem;
+  margin-top:.65rem;
+  padding:2.85rem 0 .7rem;
 }
 .tool-page .tool-section::before{
   content:"";
   position:absolute;
-  top:1.8rem;
+  top:1.4rem;
   left:0;
   width:3.4rem;
   height:3px;
@@ -121,38 +136,86 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
   font-weight:780;
 }
 .tool-page .tool-title{
-  margin:.1rem 0 .9rem;
-  font-size:1.27rem;
+  margin:.1rem 0 .85rem;
+  font-size:1.3rem;
   line-height:1.25;
-  letter-spacing:-.015em;
+  letter-spacing:-.012em;
   font-weight:760;
   color:var(--ink);
 }
 .tool-page .tool-section + .tool-section{
-  margin-top:.75rem;
+  margin-top:.25rem;
 }
 .tool-page .related{
-  margin-top:4.25rem;
-  border-top:3px solid var(--accent);
-  padding-top:1.35rem;
+  margin-top:2.9rem;
+  border-top:2px solid var(--accent);
+  padding-top:1.15rem;
 }
 .tool-page .related h2{
-  font-size:1.12rem;
-  margin:0 0 .65rem;
+  font-size:1.06rem;
+  margin:0 0 .55rem;
 }
 .tool-page .trust{
-  margin-top:2.4rem;
+  margin-top:1.9rem;
   border-top:1px solid var(--line);
-  padding-top:1.45rem;
+  padding-top:1.1rem;
 }
 .tool-page .sources{
-  margin-top:2.1rem;
+  margin-top:1.45rem;
   border-top:1px solid var(--line);
-  padding-top:1.4rem;
+  padding-top:1.1rem;
+}
+.tool-page .trust h2,
+.tool-page .sources h2{
+  margin:0 0 .45rem;
+  font-size:.98rem;
+  letter-spacing:0;
+  font-weight:700;
+}
+.tool-page .trust p,
+.tool-page .trust li,
+.tool-page .sources li{
+  font-size:.9rem;
+  line-height:1.5;
+  color:var(--muted);
+}
+.tool-page .sources ul{
+  margin:.55rem 0 0;
+  padding-left:1.05rem;
+}
+.tool-page .sources li{
+  margin:.45rem 0;
+}
+.tool-page .trust a,
+.tool-page .sources a{
+  color:var(--muted);
+  text-decoration-color:var(--line);
+}
+.tool-page .trust a:hover,
+.tool-page .sources a:hover{
+  color:var(--accent-dark);
+  text-decoration-color:currentColor;
 }
 @media (max-width:520px){
-  .tool-page .route-intro{margin-bottom:2rem}
-  .tool-page .tool-section{padding-top:3.05rem}
-  .tool-page .tool-section::before{top:1.62rem;width:3rem}
-  .tool-page .related{margin-top:3.7rem}
+  .hero h1{
+    font-size:clamp(2.05rem,8vw,2.8rem);
+  }
+  .hero > p:not(.lede){
+    margin:.4rem 0 .65rem;
+    font-size:1.02rem;
+    line-height:1.48;
+  }
+  .tool-page .route-intro{
+    margin-bottom:1.05rem;
+  }
+  .tool-page .tool-section{
+    padding-top:2.5rem;
+  }
+  .tool-page .tool-section::before{
+    top:1.25rem;
+    width:3rem;
+  }
+  .tool-page .related{
+    margin-top:2.6rem;
+  }
 }
