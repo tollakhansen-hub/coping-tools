@@ -235,3 +235,5 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
   }
 }
 
+.copyright a{color:inherit;text-decoration-color:var(--line)}
+.copyright a:hover{color:var(--accent-dark);text-decoration-color:currentColor}
