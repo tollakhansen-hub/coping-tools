@@ -9,5 +9,19 @@
     "run_worker_first": true,
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "INSTALL_STATS",
+        "class_name": "InstallStats"
+      }
+    ]
+  },
+  "exports": {
+    "InstallStats": {
+      "type": "durable-object",
+      "storage": "sqlite"
+    }
   }
 }
