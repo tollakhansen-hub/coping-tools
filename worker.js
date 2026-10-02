@@ -106,8 +106,7 @@ function installStatsStub(env) {
   return env.INSTALL_STATS.get(id);
 }
 
-export default {
-  async fetch(request, env) {
+async function handleRequest(request, env) {
     const url = new URL(request.url);
 
     if (url.protocol === "http:") {
@@ -148,5 +147,22 @@ export default {
     }
 
     return env.ASSETS.fetch(request);
+}
+
+export default {
+  async fetch(request, env) {
+    const response = await handleRequest(request, env);
+    const url = new URL(request.url);
+    if (url.protocol !== "https:" || url.hostname !== "coping.tools") {
+      return response;
+    }
+
+    const headers = new Headers(response.headers);
+    headers.set("Strict-Transport-Security", "max-age=86400");
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    });
   },
 };
