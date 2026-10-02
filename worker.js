@@ -1,6 +1,57 @@
 import { DurableObject } from "cloudflare:workers";
 
 const INSTALL_EVENTS = new Set(["pressed", "accepted", "installed"]);
+const MAX_EVENT_BYTES = 256;
+
+function apiResponse(body, status, extraHeaders = {}) {
+  return new Response(body, {
+    status,
+    headers: { "Cache-Control": "no-store", ...extraHeaders },
+  });
+}
+
+async function readInstallEvent(request) {
+  const length = request.headers.get("Content-Length");
+  if (length !== null && (!/^\d+$/.test(length) || Number(length) > MAX_EVENT_BYTES)) {
+    return { error: apiResponse("Request body too large", 413) };
+  }
+  if (request.headers.get("Content-Type")?.split(";")[0].trim().toLowerCase() !== "application/json") {
+    return { error: apiResponse("Expected application/json", 415) };
+  }
+  if (!request.body) return { error: apiResponse("Invalid event", 400) };
+
+  const reader = request.body.getReader();
+  const chunks = [];
+  let size = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size += value.byteLength;
+      if (size > MAX_EVENT_BYTES) {
+        reader.cancel().catch(() => {});
+        return { error: apiResponse("Request body too large", 413) };
+      }
+      chunks.push(value);
+    }
+    const bytes = new Uint8Array(size);
+    let offset = 0;
+    for (const chunk of chunks) {
+      bytes.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    const payload = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+    if (!payload || Array.isArray(payload) ||
+        Object.keys(payload).length !== 1 || !INSTALL_EVENTS.has(payload.event)) {
+      return { error: apiResponse("Invalid event", 400) };
+    }
+    return { event: payload.event };
+  } catch {
+    return { error: apiResponse("Invalid event", 400) };
+  } finally {
+    reader.releaseLock();
+  }
+}
 
 export class InstallStats extends DurableObject {
   constructor(ctx, env) {
@@ -16,11 +67,8 @@ export class InstallStats extends DurableObject {
 
   async fetch(request) {
     if (request.method === "POST") {
-      const payload = await request.json().catch(() => null);
-      const event = payload?.event;
-      if (!INSTALL_EVENTS.has(event)) {
-        return new Response("Invalid event", { status: 400 });
-      }
+      const { event, error } = await readInstallEvent(request);
+      if (error) return error;
 
       this.sql.exec(
         `INSERT INTO install_stats (event, count)
@@ -28,7 +76,7 @@ export class InstallStats extends DurableObject {
          ON CONFLICT(event) DO UPDATE SET count = count + 1`,
         event
       );
-      return new Response(null, { status: 204 });
+      return apiResponse(null, 204);
     }
 
     if (request.method === "GET") {
@@ -41,7 +89,15 @@ export class InstallStats extends DurableObject {
       });
     }
 
-    return new Response("Method not allowed", { status: 405 });
+    return apiResponse("Method not allowed", 405, { Allow: "GET, POST" });
+  }
+}
+
+async function forwardInstallStats(env, request) {
+  try {
+    return await installStatsStub(env).fetch(request);
+  } catch {
+    return apiResponse("Counter temporarily unavailable", 503);
   }
 }
 
@@ -61,22 +117,32 @@ export default {
 
     if (url.pathname === "/api/install-event") {
       if (request.method !== "POST") {
-        return new Response("Method not allowed", { status: 405 });
+        return apiResponse("Method not allowed", 405, { Allow: "POST" });
       }
 
       if (request.headers.get("Origin") !== url.origin) {
-        return new Response("Forbidden", { status: 403 });
+        return apiResponse("Forbidden", 403);
       }
 
-      return installStatsStub(env).fetch(request);
+      const { event, error } = await readInstallEvent(request);
+      if (error) return error;
+
+      // Forward only the validated aggregate event, without visitor headers.
+      return forwardInstallStats(env,
+        new Request("https://install-stats.internal/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ event }),
+        })
+      );
     }
 
     if (url.pathname === "/api/install-stats") {
       if (request.method !== "GET") {
-        return new Response("Method not allowed", { status: 405 });
+        return apiResponse("Method not allowed", 405, { Allow: "GET" });
       }
 
-      return installStatsStub(env).fetch(
+      return forwardInstallStats(env,
         new Request("https://install-stats.internal/", { method: "GET" })
       );
     }
