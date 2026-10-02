@@ -159,6 +159,7 @@ export default {
 
     const headers = new Headers(response.headers);
     headers.set("Strict-Transport-Security", "max-age=86400");
+    headers.set("Content-Security-Policy", "object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
     return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
