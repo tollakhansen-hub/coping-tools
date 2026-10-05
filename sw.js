@@ -1,4 +1,4 @@
-const CACHE = "coping-tools-v4";
+const CACHE = "coping-tools-v5";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/how-tools-are-chosen/","/privacy/"]);
 const CORE = [
   "/",
@@ -29,6 +29,7 @@ const CORE = [
   "/assets/fonts/literata-v40-normal-latin.woff2",
   "/assets/fonts/literata-v40-normal-vietnamese.woff2",
   "/assets/styles.css?v=20261001",
+  "/assets/styles.css?v=20261005",
   "/manifest.webmanifest"
 ];
 const ALLOWED = new Set(CORE);

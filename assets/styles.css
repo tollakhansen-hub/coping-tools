@@ -184,6 +184,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 38px}
 .footer-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-bottom:22px}
 .footer-links a{font-size:.94rem}
 .urgent{font-weight:700;font-size:.94rem;margin:.4rem 0 0}
+/* Quiet boundary note after route choices, before evidence. */
+.urgent-note{margin:1.9rem 0 0}
 .copyright{font-size:.86rem;color:var(--muted);margin-top:18px}
 .four-checks{counter-reset:check;margin-top:24px}
 .check{border-top:1px solid var(--line);padding:22px 0 5px}
