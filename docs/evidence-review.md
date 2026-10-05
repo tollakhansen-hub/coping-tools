@@ -25,3 +25,15 @@ Internal review record for coping.tools. This file is excluded from deployed sta
 - Corrigendum: Psychological Medicine. 2026;56:e31. PMID: 41592808. DOI: 10.1017/S0033291726103304.
 - Decision: record the correction; no change to the public summary is required.
 - Reason: the corrigendum changed classification/subgroup estimates but did not overturn the overall conclusion that CBT interventions reduce repetitive negative thinking. The public page only states the overall moderate reduction and therefore remains defensible.
+
+## 5 October 2026 — targeted evidence-clarity pass
+
+### My body won’t settle — outside-world exercise
+- Checked WHO’s *Doing What Matters in Times of Stress* guidance and grounding instructions, including refocusing on the surroundings and noticing sensory details.
+- Decision: explicitly identify support at the grounding-principle level in the existing evidence section. The cited guidance does not clinically validate this exact short exercise.
+- Scope: guidance review, not an exhaustive search for trials of individual grounding exercises. Practical instructions unchanged.
+
+### I feel low or shut down — behavioural activation population scope
+- Checked the abstract of Cuijpers et al., *Behavioral activation for depression: A comprehensive systematic review and meta-analysis*. Clinical Psychology Review. 2026;128:102783. PMID: 42492146. DOI: 10.1016/j.cpr.2026.102783.
+- Decision: distinguish the 105 trials across age groups and settings from the 61 trials in the main adult-outpatient comparison with control conditions.
+- Retain the distinction between treatment evidence and the practical principle borrowed by these unvalidated brief exercises. No full-text quality appraisal was performed in this pass.

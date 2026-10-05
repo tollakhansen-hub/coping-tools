@@ -1,4 +1,4 @@
-const CACHE = "coping-tools-v5";
+const CACHE = "coping-tools-v6";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/how-tools-are-chosen/","/privacy/"]);
 const CORE = [
   "/",
