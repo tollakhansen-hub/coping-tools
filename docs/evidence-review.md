@@ -65,3 +65,33 @@ Scope: current five route pages and targeted 2025–2026 literature search; not 
 - Decision: explicitly add contradictory finding to public evidence paragraph and link. Keep voluntary support, no forced retelling, practical needs and no prevention claim.
 - *When war sneaks in through the window* (2026), PMID: 42593982. Abstract reviewed: 389 Israeli adults followed weekly for six weeks; media-related distress and PTSD symptoms showed reciprocal associations. Observational, context-specific evidence; cannot establish that closing a feed treats distress.
 - Decision: retain optional screen break and current observational-evidence limitation.
+
+
+## 9 October 2026 — Val Town flagged trials, full-paper review
+
+Scope: two flagged randomized trials; main full texts reviewed, supplementary files not separately appraised. Decision: retain as indirect background evidence for longer guided programmes. No public route wording, exercises, links or review dates changed.
+
+### Persistent stress — nurse-led collaborative care versus guided self-help CBT
+- Source: Kontio et al. (2026), PMID: 42843928; DOI: 10.1136/bmjment-2026-302797. https://mentalhealth.bmj.com/content/29/1/e302797
+- Population and intervention: 172 patients at one Swedish primary-care centre with mild-to-moderate stress-related difficulties; nurse-led collaborative care (2–6 visits over up to 12 weeks) versus 12-week psychologist-guided self-help CBT.
+- Outcomes: small primary between-group difference favouring CBT (d=0.22); one-sided CI upper bound 0.52 exceeded the prespecified non-inferiority margin of 0.3. Non-inferiority was not demonstrated; this does not establish that collaborative care is ineffective. Both groups improved, with improvements sustained at one year.
+- Limitations: no untreated control, self-report outcomes, single centre, predominantly middle-aged well-educated women; no formal fidelity ratings; no complementary per-protocol analysis.
+- Cautions: negative experiences were reported during treatment in both groups, commonly increased stress; no serious negative effects reported. These descriptive reports do not establish comparative harm or harm from a site exercise.
+- Relevance: background for collaborative problem solving on “There’s too much at once”; not evidence for the exact short adaptation. Persistent stress is not equivalent to early post-trauma intervention.
+- Decision: no public change. Keep treatment evidence separate from practical principle and exact-exercise evidence.
+
+### REPICAL — guided digital multicomponent stepped care
+- Source: González-Spinoglio et al. (2026), PMID: 42829513; DOI: 10.1155/da/5875889. https://pmc.ncbi.nlm.nih.gov/articles/PMC13633456/
+- Population and intervention: 165 distressed long-term-care workers in Catalonia; both groups received 15–20 minutes of psychological first aid (PFA). The intervention group additionally received five weeks of Doing What Matters (DWM), including weekly 15-minute helper calls, followed when distress persisted by five weekly 60-minute individual Problem Management Plus (PM+) sessions.
+- Outcomes: week-21 PHQ-ADS difference 4.2 points (95% CI 1.1–7.3), favouring the programme; no significant health-related quality-of-life improvement. Of 62 intervention participants assessed after DWM, 57 stepped up to PM+.
+- Limitations: 165 recruited versus target 212; 22.4% attrition, higher in intervention group; self-report, unblinded participants, predominantly women, short follow-up. Package design does not isolate DWM, PM+, grounding, activation, problem solving or helper contact.
+- Cautions: ten participants with suicidal ideation were referred to mental-health services; none assessed as high/imminent risk. No other serious adverse events reported; events were not considered participation-related. This is not a safety test of unguided site exercises.
+- Contradictory/context evidence: the discussion describes mixed earlier standalone DWM findings; programme benefit must not be translated into certainty about standalone DWM or a one-minute adaptation.
+- Relevance: indirect background across grounding, problem solving and activation. Shared PFA in both arms means this contrast cannot establish PFA efficacy.
+- Decision: no public change or stronger efficacy claim. Preserve guided-treatment versus short self-help boundary.
+
+### Watch classification maintenance
+- Require trauma context before mapping generic “early intervention” to post-trauma intervention.
+- Exclude PFA as the contrasted mechanism when the abstract explicitly says all participants received it.
+- Flag guided/stepped/collaborative programmes as context mismatches; exclude them from automatic practical-improvement candidates.
+- Record reviewed trial labels as persistent-stress care and guided multicomponent stepped care. Existing dedupe records and schedule remain intact.
