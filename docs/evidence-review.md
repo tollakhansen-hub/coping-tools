@@ -95,3 +95,30 @@ Scope: two flagged randomized trials; main full texts reviewed, supplementary fi
 - Exclude PFA as the contrasted mechanism when the abstract explicitly says all participants received it.
 - Flag guided/stepped/collaborative programmes as context mismatches; exclude them from automatic practical-improvement candidates.
 - Record reviewed trial labels as persistent-stress care and guided multicomponent stepped care. Existing dedupe records and schedule remain intact.
+
+
+## 13 October 2026 — brief breathing and worry evidence clarification
+
+Scope: targeted follow-up to the five-route review. Public changes are limited to evidence notes, references and review dates on the body and mind routes. Practical instructions are unchanged. Other route dates remain 8 October because no public evidence update was required. This is not a systematic review.
+
+### My body won’t settle — one-minute breathing pilot
+- Riedl et al. (2026), DOI: 10.1080/10615806.2026.2659809. Published online 19 April 2026; newly considered here, not newly published since 8 October. Accessible full text reviewed via the authors’ university repository.
+- Preregistered within-person field experiment in 47 university students aged 18–30 (43 women); 782 retained pre/post anxiety observations. Approximately one minute of box breathing or cyclic sighing compared with a passive usual-activity condition, with anxiety assessed five minutes after the initial questionnaire. Both techniques showed greater short-term anxiety reductions than control.
+- Participants received initial instruction, six practice exercises and video guidance. Certain medical conditions and pregnancy were excluded. Small, selected sample, passive comparator, self-report outcome and short outcome interval limit generalization and specificity. Repeated observations do not constitute 782 independent participants.
+- Attention outcomes were mixed: fewer inhibition errors after box breathing, but longer reaction times after both techniques. Do not claim improved concentration or productivity. No conclusion about long-term benefit or comprehensive safety can be drawn.
+- Decision: add a cautious public evidence paragraph and reference. No change to gentle untimed breathing, no breath holds or mandatory timers. The study does not validate the site's exercise.
+
+### My mind won’t stop — full-text check of postponement trial
+- McCarrick et al. (2025), DOI: 10.1080/08870446.2025.2590072; PMID: 41347618. Accessible full text reviewed via White Rose repository, extending the 8 October abstract-level review. Four-arm online randomized trial, 186 participants over 14 days; daily self-report measures and substantial missing observations limit interpretation.
+- Augmented if–then postponement reduced worry duration relative to standard postponement by approximately 15 minutes. This is not a demonstrated benefit over active control. Combined intervention arms did not significantly reduce worry duration versus active control. Sleep outcomes did not improve. Standard postponement increased reported worry frequency versus active control; do not conceal this adverse-direction result or describe it as established clinical harm.
+- Decision: explicitly describe the comparator, null results and increased-frequency finding in the public evidence note, and add the trial link. Keep the optional practical example and stop instruction unchanged; the site adaptation remains unvalidated.
+
+### My mind won’t stop — corrigendum verified and linked
+- Stenzel et al., DOI: 10.1017/S0033291726103304; PMID: 41592808. Full publisher correction reviewed (Cambridge University Press, 28 January 2026). Already recorded internally on 30 September; this is not a new correction.
+- Reclassification moves metacognitive therapy, Applied Relaxation and one Emotion Regulation Therapy treatment into the RNT-specific subgroup. Corrected subgroup effects: g = −0.87 versus −0.48; difference 0.39. Authors report conclusions unchanged.
+- Decision: retain the public overall moderate-effect summary, which does not quote affected subgroup estimates; add a public corrigendum link alongside the original meta-analysis.
+
+### Other routes
+- Overwhelm: retain the distinction between prospective-memory support and untested emotional-overwhelm effects. No new tool.
+- Low mood: the 105-trial review and brief action-planning qualification are already incorporated. No stronger efficacy claim.
+- Event: the contradictory PFA trial is already incorporated. The October media-trauma measurement review does not test whether closing a feed reduces distress. No new efficacy claim.
