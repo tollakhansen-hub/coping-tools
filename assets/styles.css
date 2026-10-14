@@ -345,3 +345,19 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .home-brand{display:inline-flex;flex-direction:column;align-items:flex-start;gap:1px}
 .home-wordmark{font-size:1.32rem;line-height:1.2;font-weight:680}
 .free-promise{font-size:.69rem;line-height:1.35;color:var(--muted);font-weight:450;letter-spacing:.005em}
+
+/* Quiet institutional doorway — 14 October 2026 */
+.head-row{display:flex;justify-content:space-between;align-items:center;gap:1.1rem}
+.organisation-link{display:inline-block;font-size:.9rem;font-weight:650;line-height:1.4;white-space:nowrap;text-decoration-thickness:.06em;text-underline-offset:.2em}
+.organisation-link:hover{text-decoration-thickness:.11em}
+.org-intro{max-width:39rem}
+.org-intro .org-lede{font-size:1.18rem;line-height:1.5;font-weight:700;margin:.15rem 0 .7rem}
+.org-intro p{max-width:40rem}
+.org-summary{color:var(--muted);font-size:.94rem;font-weight:600;margin:1.15rem 0 2rem}
+.org-summary span{margin:0 .32em;color:var(--line)}
+.org-section{border-top:1px solid var(--line);padding:1.4rem 0 .35rem;margin-top:1.7rem}
+.org-section h2{font-size:1.27rem;margin:0 0 .6rem}
+.org-section p{font-size:1.02rem;max-width:40rem;line-height:1.56;margin:.45rem 0 .9rem}
+.org-section .org-action{display:inline-block;font-size:.98rem;font-weight:720;margin:.15rem 0 .4rem}
+.org-section .org-aside{font-size:.91rem;color:var(--muted);margin-top:.8rem}
+@media(max-width:380px){.head-row{gap:.55rem}.organisation-link{font-size:.84rem}}
