@@ -3,6 +3,23 @@ import { DurableObject } from "cloudflare:workers";
 const INSTALL_EVENTS = new Set(["pressed", "accepted", "installed"]);
 const MAX_EVENT_BYTES = 256;
 
+const REPORT_ONLY_CSP = [
+  "default-src 'self'",
+  "script-src 'self' https://static.cloudflareinsights.com https://challenges.cloudflare.com",
+  "connect-src 'self' https://cloudflareinsights.com https://challenges.cloudflare.com",
+  "style-src 'self'",
+  "font-src 'self'",
+  "img-src 'self' data:",
+  "frame-src https://challenges.cloudflare.com",
+  "worker-src 'self'",
+  "manifest-src 'self'",
+  "object-src 'none'",
+  "base-uri 'none'",
+  "frame-ancestors 'none'",
+  "form-action 'none'"
+].join("; ");
+
+
 function apiResponse(body, status, extraHeaders = {}) {
   return new Response(body, {
     status,
@@ -140,6 +157,12 @@ async function handleRequest(request, env) {
       if (request.method !== "GET") {
         return apiResponse("Method not allowed", 405, { Allow: "GET" });
       }
+      // No read token configured: the statistics endpoint is private by default.
+      // A maintainer can configure STATS_READ_TOKEN as a Cloudflare Worker secret.
+      if (!env.STATS_READ_TOKEN ||
+          request.headers.get("Authorization") !== `Bearer ${env.STATS_READ_TOKEN}`) {
+        return apiResponse("Not found", 404);
+      }
 
       return forwardInstallStats(env,
         new Request("https://install-stats.internal/", { method: "GET" })
@@ -159,7 +182,16 @@ export default {
 
     const headers = new Headers(response.headers);
     headers.set("Strict-Transport-Security", "max-age=86400");
+    headers.set("X-Content-Type-Options", "nosniff");
+    headers.set("X-Frame-Options", "DENY");
+    headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+    headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
     headers.set("Content-Security-Policy", "object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
+    // Keep the restrictive additions report-only until Cloudflare challenges
+    // and the analytics beacon have been tested on a staging deployment.
+    if (headers.get("Content-Type")?.toLowerCase().includes("text/html")) {
+      headers.set("Content-Security-Policy-Report-Only", REPORT_ONLY_CSP);
+    }
     return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,

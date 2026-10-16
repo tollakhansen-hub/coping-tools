@@ -1,4 +1,4 @@
-const CACHE = "coping-tools-v12";
+const CACHE = "coping-tools-v13";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/how-tools-are-chosen/","/privacy/"]);
 const CORE = [
   "/assets/pebble-icon-96-20261006.png",
@@ -28,18 +28,9 @@ const CORE = [
   "/assets/fonts/atkinson-next-v7-italic-latin.woff2",
   "/assets/fonts/atkinson-next-v7-normal-latin-ext.woff2",
   "/assets/fonts/atkinson-next-v7-normal-latin.woff2",
-  "/assets/fonts/literata-v40-normal-cyrillic-ext.woff2",
-  "/assets/fonts/literata-v40-normal-cyrillic.woff2",
-  "/assets/fonts/literata-v40-normal-greek-ext.woff2",
-  "/assets/fonts/literata-v40-normal-greek.woff2",
   "/assets/fonts/literata-v40-normal-latin-ext.woff2",
   "/assets/fonts/literata-v40-normal-latin.woff2",
-  "/assets/fonts/literata-v40-normal-vietnamese.woff2",
-  "/assets/styles.css?v=20261001",
-  "/assets/styles.css?v=20261005",
-  "/assets/styles.css?v=20261014",
-  "/assets/styles.css?v=20261016",
-  "/assets/styles.css?v=20261016-inline",
+  "/assets/styles.css?v=20261016-audit",
   "/manifest.webmanifest"
 ];
 const ALLOWED = new Set(CORE);
@@ -64,8 +55,23 @@ function cacheable(response, request) {
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
-    // Fetch every public route, not a visitor-specific selection of pages.
-    await cache.addAll(CORE.map(path => new Request(path, { cache: "reload" })));
+    // Precache public routes; an unavailable optional asset must not prevent
+    // the service worker from updating the whole site.
+    const pending = [...CORE];
+    await Promise.all(Array.from({ length: 5 }, async () => {
+      while (pending.length) {
+        const path = pending.shift();
+        try {
+          const request = new Request(path, { cache: "reload" });
+          const response = await fetch(request);
+          if (response.ok && !response.redirected && response.type !== "opaque") {
+            await cache.put(path, response);
+          }
+        } catch {
+          // Online access still works. A later successful visit can fill the cache.
+        }
+      }
+    }));
     await self.skipWaiting();
   })());
 });

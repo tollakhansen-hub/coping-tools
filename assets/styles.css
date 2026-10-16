@@ -245,9 +245,9 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 }
 .tool-page .tool-section h2{
   margin:0 0 .55rem;
-  font-size:.79rem;
-  line-height:1.2;
-  letter-spacing:.085em;
+  font-size:.88rem;
+  line-height:1.25;
+  letter-spacing:.065em;
   text-transform:uppercase;
   color:var(--accent-dark);
   font-weight:780;
@@ -292,8 +292,8 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .tool-page .trust p,
 .tool-page .trust li,
 .tool-page .sources li{
-  font-size:.9rem;
-  line-height:1.5;
+  font-size:.96rem;
+  line-height:1.55;
   color:var(--muted);
 }
 .tool-page .sources ul{
@@ -387,3 +387,10 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .tool-page .evidence-expand .evidence-toggle:hover{text-decoration-thickness:2px}
 .tool-page .evidence-expand .evidence-toggle:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .tool-page .evidence-expand .evidence-extra .sources{margin-top:1.25rem}
+
+/* Accessible research notes and resilient narrow screens — 16 October 2026 */
+.tool-page .trust a,.tool-page .sources a{overflow-wrap:anywhere}
+.tool-page .evidence-expand .evidence-toggle{min-height:1.65rem;padding-block:.16em}
+.footer-links a{padding-block:.2rem}
+@media(max-width:380px){.shell{width:min(100% - 32px,var(--max))}.route{gap:10px;grid-template-columns:32px minmax(0,1fr) 20px}}
+@media(forced-colors:active){.tool-page .tool-section::before{background:CanvasText}.tool-page .evidence-toggle{color:LinkText;text-decoration:underline}}
