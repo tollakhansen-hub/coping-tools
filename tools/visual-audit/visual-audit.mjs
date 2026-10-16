@@ -153,6 +153,35 @@ for (const url of urls) {
             timingTransform: hs?.textTransform || null,
           };
         });
+        // Exercise the real inline disclosure rather than only checking static markup.
+        let evidenceControl = null;
+        const evidence = document.querySelector('.tool-page [data-evidence-expand]');
+        if (evidence) {
+          const button = evidence.querySelector('.evidence-toggle');
+          const lead = evidence.querySelector('.evidence-lead');
+          const rest = evidence.querySelector('.evidence-inline-rest');
+          const extra = evidence.querySelector('.evidence-extra');
+          const collapsed = Boolean(button && lead && rest && extra &&
+            !button.hidden && rest.hidden && extra.hidden &&
+            button.parentElement === lead &&
+            button.getAttribute('aria-expanded') === 'false');
+          if (button && rest && extra) {
+            button.click();
+            const textParagraphs = [...extra.children].filter(child => child.tagName === 'P');
+            const end = textParagraphs.at(-1) || lead;
+            const expanded = !rest.hidden && !extra.hidden &&
+              button.getAttribute('aria-expanded') === 'true';
+            const atTextEnd = button.parentElement === end;
+            button.click();
+            const collapsedAgain = rest.hidden && extra.hidden &&
+              button.getAttribute('aria-expanded') === 'false' &&
+              button.parentElement === lead;
+            evidenceControl = { collapsed, expanded, atTextEnd, collapsedAgain };
+          } else {
+            evidenceControl = { collapsed: false, expanded: false, atTextEnd: false, collapsedAgain: false };
+          }
+        }
+
         const body = getComputedStyle(document.body);
         const h1s = document.querySelectorAll('h1').length;
         const main = document.querySelector('main');
@@ -171,6 +200,7 @@ for (const url of urls) {
           clipped,
           tinyTargets,
           toolSections,
+          evidenceControl,
           mainTop: mainRect ? Math.round(mainRect.top) : null,
           axe: axeResult.violations.map(v => ({
             id: v.id,
@@ -207,6 +237,7 @@ const overflow = results.filter(r => r.horizontalOverflow);
 const navFailures = results.filter(r => r.navError || (r.status && r.status >= 400));
 const consoleFailures = results.filter(r => r.consoleErrors?.length || r.failedRequests?.length);
 const markerFailures = results.filter(r => r.toolSections?.length && r.toolSections.some(s => parseFloat(s.markerWidth) < 30 || parseFloat(s.markerHeight) < 2));
+const evidenceFailures = results.filter(r => r.evidenceControl && Object.values(r.evidenceControl).some(v => v !== true));
 
 const summary = {
   baseURL,
@@ -219,6 +250,7 @@ const summary = {
   seriousAccessibilityCases: severeAxe.length,
   consoleOrRequestFailureCases: consoleFailures.length,
   sectionMarkerFailureCases: markerFailures.length,
+  evidenceDisclosureFailureCases: evidenceFailures.length,
 };
 
 await writeFile(path.join(outDir, 'report.json'), JSON.stringify({ summary, results }, null, 2));
@@ -237,6 +269,7 @@ md.push(`- Horizontal overflow cases: **${summary.horizontalOverflowCases}**`);
 md.push(`- Serious/critical accessibility findings: **${summary.seriousAccessibilityCases}**`);
 md.push(`- Console/request failure cases: **${summary.consoleOrRequestFailureCases}**`);
 md.push(`- Missing/weak coping-section marker cases: **${summary.sectionMarkerFailureCases}**`);
+md.push(`- Broken or misplaced inline evidence links: **${summary.evidenceDisclosureFailureCases}**`);
 md.push(``);
 
 if (navFailures.length) {
@@ -269,6 +302,12 @@ if (consoleFailures.length) {
     for (const e of r.consoleErrors || []) md.push(`  - console: ${e}`);
     for (const e of r.failedRequests || []) md.push(`  - request: ${e}`);
   }
+  md.push(``);
+}
+
+if (evidenceFailures.length) {
+  md.push(`## Inline evidence disclosure problems`);
+  for (const r of evidenceFailures) md.push(`- ${r.url} — ${r.viewport.name}/${r.scheme}: ${JSON.stringify(r.evidenceControl)}`);
   md.push(``);
 }
 

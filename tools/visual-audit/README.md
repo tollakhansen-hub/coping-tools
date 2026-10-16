@@ -39,6 +39,6 @@ Each run creates a timestamped folder under `reports/` with:
 
 The crawler reads the live sitemap and also checks `/not-sure/`.
 
-Checks include HTTP/navigation failures, horizontal overflow, clipped text, browser/request errors, serious WCAG findings via axe-core, tiny interactive targets in the JSON detail, and the coping-page section-marker treatment.
+Checks include HTTP/navigation failures, horizontal overflow, clipped text, browser/request errors, serious WCAG findings via axe-core, tiny interactive targets in the JSON detail, the coping-page section-marker treatment, and interactive See more / See less behaviour (including that the control remains at the end of the visible text).
 
 This tooling is excluded from Cloudflare static assets and is not part of the public website.
