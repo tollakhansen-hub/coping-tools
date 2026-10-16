@@ -361,3 +361,25 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .org-section .org-action{display:inline-block;font-size:.98rem;font-weight:720;margin:.15rem 0 .4rem}
 .org-section .org-aside{font-size:.91rem;color:var(--muted);margin-top:.8rem}
 @media(max-width:380px){.head-row{gap:.55rem}.organisation-link{font-size:.84rem}}
+
+
+/* Native, keyboard-accessible disclosure for longer research notes. */
+.tool-page .evidence-summary{margin:.65rem 0 .75rem}
+.tool-page .evidence-details{margin:.7rem 0 1rem}
+.tool-page .evidence-details > summary{
+  display:list-item;
+  list-style-position:inside;
+  width:fit-content;
+  cursor:pointer;
+  font-size:.96rem;
+  font-weight:700;
+  color:var(--accent-dark);
+  text-decoration:underline;
+  text-underline-offset:.16em;
+}
+.tool-page .evidence-details > summary:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.tool-page .evidence-details > summary .show-less{display:none}
+.tool-page .evidence-details[open] > summary .show-more{display:none}
+.tool-page .evidence-details[open] > summary .show-less{display:inline}
+.tool-page .evidence-body{padding-top:.35rem}
+.tool-page .evidence-body .sources{margin-top:1.25rem}
