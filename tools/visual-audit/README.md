@@ -31,6 +31,12 @@ Full audit: 320, 360, 412, 768 and 1366 widths, light + dark:
 bash run.sh --full
 ```
 
+To audit a preview instead of production, provide its URL first:
+
+```bash
+bash run.sh https://YOUR-PREVIEW-URL.example --full
+```
+
 Each run creates a timestamped folder under `reports/` with:
 
 - `report.md` — readable summary

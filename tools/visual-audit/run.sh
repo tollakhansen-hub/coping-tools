@@ -20,4 +20,10 @@ if [ ! -d node_modules ]; then
   exit 1
 fi
 
-node visual-audit.mjs https://coping.tools "$@"
+# Optional first argument: a staging/preview URL. Defaults to the live site.
+BASE_URL="https://coping.tools"
+if [[ "${1:-}" == http://* || "${1:-}" == https://* ]]; then
+  BASE_URL="$1"
+  shift
+fi
+node visual-audit.mjs "$BASE_URL" "$@"
