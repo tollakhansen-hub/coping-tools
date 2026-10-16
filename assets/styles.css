@@ -369,7 +369,6 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .tool-page .evidence-expanded > p:first-child{margin-top:.35rem}
 .tool-page .evidence-control{
   appearance:none;
-  display:inline;
   border:0;
   border-radius:0;
   background:transparent;
@@ -382,5 +381,6 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
   text-underline-offset:.16em;
   cursor:pointer;
 }
+.tool-page .evidence-control[hidden]{display:none}
 .tool-page .evidence-control:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
 .tool-page .evidence-expanded .sources{margin-top:1.25rem}
