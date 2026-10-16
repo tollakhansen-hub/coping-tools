@@ -363,23 +363,24 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 @media(max-width:380px){.head-row{gap:.55rem}.organisation-link{font-size:.84rem}}
 
 
-/* Native, keyboard-accessible disclosure for longer research notes. */
+/* Inline read-more controls follow the final visible sentence. */
 .tool-page .evidence-summary{margin:.65rem 0 .75rem}
-.tool-page .evidence-details{margin:.7rem 0 1rem}
-.tool-page .evidence-details > summary{
-  display:list-item;
-  list-style-position:inside;
-  width:fit-content;
-  cursor:pointer;
-  font-size:.96rem;
-  font-weight:700;
+.tool-page .evidence-expanded{margin-top:.25rem}
+.tool-page .evidence-expanded > p:first-child{margin-top:.35rem}
+.tool-page .evidence-control{
+  appearance:none;
+  display:inline;
+  border:0;
+  border-radius:0;
+  background:transparent;
   color:var(--accent-dark);
+  font:inherit;
+  font-weight:700;
+  padding:0;
+  margin:0 0 0 .25em;
   text-decoration:underline;
   text-underline-offset:.16em;
+  cursor:pointer;
 }
-.tool-page .evidence-details > summary:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
-.tool-page .evidence-details > summary .show-less{display:none}
-.tool-page .evidence-details[open] > summary .show-more{display:none}
-.tool-page .evidence-details[open] > summary .show-less{display:inline}
-.tool-page .evidence-body{padding-top:.35rem}
-.tool-page .evidence-body .sources{margin-top:1.25rem}
+.tool-page .evidence-control:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.tool-page .evidence-expanded .sources{margin-top:1.25rem}
