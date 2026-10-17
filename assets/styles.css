@@ -397,8 +397,8 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 
 /* Quiet chapter-heading wash, limited to the timing label and first exercise title.
    No backgrounds on instructional paragraphs, caution notes or evidence. */
-:root{--stage-heading-wash:#ecece6}
-@media(prefers-color-scheme:dark){:root{--stage-heading-wash:#1d2421}}
+:root{--stage-heading-wash:#e2e5de}
+@media(prefers-color-scheme:dark){:root{--stage-heading-wash:#29352f}}
 .tool-page .tool-section{
   padding-top:1.4rem;
 }
