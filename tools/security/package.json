@@ -1,0 +1,14 @@
+{
+  "name": "coping-tools-security-checks",
+  "private": true,
+  "scripts": {
+    "test": "node --test security.test.cjs"
+  },
+  "devDependencies": {
+    "miniflare": "4.20260730.0"
+  },
+  "overrides": {
+    "undici": "7.29.1",
+    "sharp": "0.35.5"
+  }
+}

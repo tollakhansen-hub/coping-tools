@@ -3,11 +3,15 @@ import { DurableObject } from "cloudflare:workers";
 const INSTALL_EVENTS = new Set(["pressed", "accepted", "installed"]);
 const MAX_EVENT_BYTES = 256;
 
-const REPORT_ONLY_CSP = [
+// Nonces also let Cloudflare attach its JavaScript detection code without
+// requiring unsafe-inline. Only trusted static asset HTML is rewritten below.
+const contentSecurityPolicy = (nonce) => [
   "default-src 'self'",
-  "script-src 'self' https://static.cloudflareinsights.com https://challenges.cloudflare.com",
+  `script-src 'self'${nonce ? ` 'nonce-${nonce}'` : ""} https://static.cloudflareinsights.com https://challenges.cloudflare.com`,
+  "script-src-attr 'none'",
   "connect-src 'self' https://cloudflareinsights.com https://challenges.cloudflare.com",
   "style-src 'self'",
+  "style-src-attr 'none'",
   "font-src 'self'",
   "img-src 'self' data:",
   "frame-src https://challenges.cloudflare.com",
@@ -169,6 +173,15 @@ async function handleRequest(request, env) {
       );
     }
 
+    // A 304 must not pair an old cached HTML body with a new CSP nonce.
+    // Fetch complete HTML so its body and policy are generated together.
+    const lastSegment = url.pathname.split("/").pop();
+    if (!lastSegment || !lastSegment.includes(".") || lastSegment.endsWith(".html")) {
+      const headers = new Headers(request.headers);
+      headers.delete("If-None-Match");
+      headers.delete("If-Modified-Since");
+      return env.ASSETS.fetch(new Request(request, { headers }));
+    }
     return env.ASSETS.fetch(request);
 }
 
@@ -176,26 +189,40 @@ export default {
   async fetch(request, env) {
     const response = await handleRequest(request, env);
     const url = new URL(request.url);
-    if (url.protocol !== "https:" || url.hostname !== "coping.tools") {
+    if (url.protocol !== "https:") {
       return response;
     }
 
     const headers = new Headers(response.headers);
-    headers.set("Strict-Transport-Security", "max-age=86400");
+    // Apply the same CSP on previews; restrict the longer HTTPS commitment
+    // to the production hostname, without includeSubDomains or preload.
+    if (url.hostname === "coping.tools") {
+      headers.set("Strict-Transport-Security", "max-age=15552000");
+    }
     headers.set("X-Content-Type-Options", "nosniff");
     headers.set("X-Frame-Options", "DENY");
     headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
     headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
-    headers.set("Content-Security-Policy", "object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
-    // Keep the restrictive additions report-only until Cloudflare challenges
-    // and the analytics beacon have been tested on a staging deployment.
-    if (headers.get("Content-Type")?.toLowerCase().includes("text/html")) {
-      headers.set("Content-Security-Policy-Report-Only", REPORT_ONLY_CSP);
+    const isHTML = headers.get("Content-Type")?.toLowerCase().includes("text/html");
+    const nonce = isHTML ? btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(24)))) : null;
+    headers.set("Content-Security-Policy", contentSecurityPolicy(nonce));
+    headers.delete("Content-Security-Policy-Report-Only");
+    if (isHTML) {
+      // Retain offline service-worker caching, but never share a nonce-bearing
+      // page through an intermediary cache or reuse the static asset's ETag.
+      headers.set("Cache-Control", "private, no-cache");
+      headers.delete("ETag");
+      headers.delete("Last-Modified");
+      headers.delete("Content-Length");
     }
-    return new Response(response.body, {
+    const secured = new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
       headers,
     });
+    if (!isHTML || !response.body) return secured;
+    return new HTMLRewriter()
+      .on("script", { element(element) { element.setAttribute("nonce", nonce); } })
+      .transform(secured);
   },
 };
