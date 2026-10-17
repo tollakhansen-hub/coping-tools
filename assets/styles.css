@@ -431,3 +431,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
   .tool-page .stage-heading{background:Canvas;border-top:1px solid CanvasText}
   .tool-page .stage-heading::before{background:CanvasText}
 }
+
+/* Preserve footer grouping without inline styles under enforced CSP. */
+.footer-meta,.footer-contact{display:inline-block}
+.footer-meta{margin-inline-end:.6em}
