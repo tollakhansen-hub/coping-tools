@@ -95,19 +95,38 @@ for (const url of urls) {
     if (axeCheck.error) item.axeError=axeCheck.error;
     item.keyboard = await safe(async()=>{
       const steps=[];
-      for(let i=0;i<14;i++){
+      const seen = new Set();
+      let reachedBodyAfterLastLink = false;
+      let bodyBeforeAnyLink = false;
+      let cycleDetected = false;
+      for(let i=0;i<40;i++){
         await page.keyboard.press('Tab');
-        steps.push(await page.evaluate(()=>{
+        const focused = await page.evaluate(()=>{
           const e=document.activeElement,s=getComputedStyle(e),r=e.getBoundingClientRect();
+          const focusables=[...document.querySelectorAll('a[href],button,input,select,textarea,summary,[tabindex]')];
           return {
-            tag:e.tagName, label:(e.textContent||e.getAttribute('aria-label')||'').trim().slice(0,55),
+            index:focusables.indexOf(e),
+            tag:e.tagName,
+            label:(e.textContent||e.getAttribute('aria-label')||'').trim().slice(0,55),
             visible:r.width>0 && r.height>0 && s.visibility!=='hidden',
             outlineDetected:(s.outlineStyle!=='none' && parseFloat(s.outlineWidth)>0)||s.boxShadow!=='none'
           };
-        }));
+        });
+        // Chromium can briefly focus the document body after the final link.
+        // That is an ordinary end-of-cycle state, not a failed interactive target.
+        if(focused.tag==='BODY'){
+          if(steps.length) reachedBodyAfterLastLink=true;
+          else bodyBeforeAnyLink=true;
+          break;
+        }
+        const key=focused.tag+':'+focused.index;
+        if(seen.has(key)){cycleDetected=true;break;}
+        seen.add(key);
+        steps.push(focused);
       }
-      return {first:steps[0],steps,
-        invisible:steps.filter(x=>x.tag==='BODY'||!x.visible).length,
+      return {first:steps[0]||null,steps,
+        reachedBodyAfterLastLink,bodyBeforeAnyLink,cycleDetected,
+        invisible:steps.filter(x=>!x.visible).length,
         noOutlineHeuristic:steps.filter(x=>x.visible&&!x.outlineDetected).length};
     },{invisible:-1});
   } catch(e) { item.error=String(e.message||e); }
@@ -188,7 +207,7 @@ const summary={
   pages:pages.length,metadataProblems:metadataIssues.length,
   brokenInternalLinks:brokenLinks.length,accessibilityFindings:findings.length,
   seriousCriticalAccessibility:findings.filter(x=>['serious','critical'].includes(x.impact)).length,
-  keyboardPotentialProblems:pages.filter(p=>p.keyboard&&(p.keyboard.invisible>0||p.keyboard.noOutlineHeuristic>0)).length,
+  keyboardPotentialProblems:pages.filter(p=>p.keyboard&&(p.keyboard.invisible>0||p.keyboard.noOutlineHeuristic>0||p.keyboard.bodyBeforeAnyLink)).length,
   missingSecurityHeaders:headerWarnings.length,
   manifestAndIconsOk:!!pwa.manifest?.ok&&pwa.icons.every(x=>x.ok),
   serviceWorkerReady:!!pwa.serviceWorker?.ready,
@@ -229,7 +248,7 @@ const lines=[
   '- Check TalkBack/screen reader, real keyboard focus, reflow at zoom, instructions and distress-sensitive language.',
   '- Test actual Android and iOS install prompts, post-install updates, and offline use on devices.',
   '- Axe WCAG 2.0/2.1/2.2 AA and best-practice tests only cover automated rules; no compliance certification.',
-  '- Focus-outline observations are heuristics and can produce false positives.',
+  '- Focus-outline observations are heuristics; end-of-tab-cycle BODY focus is excluded to avoid false positives.',
   '- HEAD-only links need manual confirmation if a server does not support HEAD.',
   '- Headers are informational and do not represent penetration testing.'
 ];
