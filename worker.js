@@ -79,7 +79,7 @@ async function readInstallEvent(request) {
 
 async function readToolFeedback(request) {
   const length = request.headers.get("Content-Length");
-  if (length !== null && (!/^\\d+$/.test(length) || Number(length) > MAX_EVENT_BYTES)) {
+  if (length !== null && (!/^\d+$/.test(length) || Number(length) > MAX_EVENT_BYTES)) {
     return { error: apiResponse("Request body too large", 413) };
   }
   if (request.headers.get("Content-Type")?.split(";")[0].trim().toLowerCase() !== "application/json") {
