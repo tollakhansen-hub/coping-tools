@@ -467,3 +467,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
   .tool-feedback-options button:hover{background:Highlight;color:HighlightText}
   .tool-feedback-status{color:CanvasText}
 }
+
+/* Tighten the final gap on the five coping routes, without changing the rest of the site. */
+.tool-page main{padding-bottom:.75rem}
+.tool-page .tool-feedback{padding-bottom:.35rem}
