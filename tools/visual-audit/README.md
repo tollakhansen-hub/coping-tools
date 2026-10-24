@@ -53,7 +53,7 @@ This tooling is excluded from Cloudflare static assets and is not part of the pu
 
 Running `bash run.sh --full` now also executes `deep-audit.mjs` and writes `deep-report.md` and `deep-report.json` beside the existing screenshot report. No additional npm packages are required.
 
-Additional checks: mobile touch-context audit; axe-core WCAG 2.0/2.1/2.2 AA and best-practice issues of all severities; 14-step keyboard focus observations; per-route title/description/canonical/H1, noindex and duplicate metadata; same-page anchor checks; read-only HEAD checks for same-origin navigation links; HTTPS security headers; manifest and icon availability; service worker readiness; three offline routes (home, coping exercise, privacy).
+Additional checks: mobile touch-context audit; axe-core WCAG 2.0/2.1/2.2 AA and best-practice issues of all severities; keyboard focus observations (up to 40 Tab steps); per-route title/description/canonical/H1, noindex and duplicate metadata; same-page anchor checks; read-only HEAD checks for same-origin navigation links; HTTPS security headers; manifest and icon availability; service worker readiness; three offline routes (home, coping exercise, privacy).
 
 Use `bash run.sh https://YOUR-PREVIEW.example --full` for a preview. The `--quick` and default modes remain lightweight. All tests use GET or HEAD; they never POST to the installation counter or modify production data. Offline browser storage is isolated to the disposable Chromium context.
 
@@ -62,3 +62,13 @@ Limitations: these tests do not prove WCAG compliance, installability on iOS/And
 CSP note: the visual and automated axe scan contexts bypass the production CSP only to inject axe-core (nonce CSP otherwise blocks test scripts). The separate PWA/offline browser context preserves the real CSP and records CSP console errors. A clean audit cannot certify CSP correctness on every route.
 
 Keyboard-check refinement: the deep auditor now stops at the normal end of a keyboard Tab cycle or repeated focus target (up to 40 steps), rather than treating the document BODY after the last link as a broken focus target. It counts only invisible focused controls, heuristic missing outlines and BODY on the first Tab as possible issues. A human keyboard review is still required.
+
+## Re-run only the extended checks (Termux)
+
+After a full audit has created a `report.json`, you can run the deep pass again without regenerating screenshots. From `tools/visual-audit`:
+
+```bash
+node deep-audit.mjs https://coping.tools "$(pwd)/reports/YOUR-TIMESTAMP"
+```
+
+The deep script now sets `PLAYWRIGHT_BROWSERS_PATH=0` before importing Playwright on Android and locates the installed `chromium-browser` or `chromium` executable when `CHROMIUM_PATH` is unspecified. Running `bash run.sh --full` remains supported. The standalone script reads the existing `report.json`, and replaces only `deep-report.md` and `deep-report.json` in that report folder.
