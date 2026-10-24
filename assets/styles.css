@@ -435,3 +435,35 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 /* Preserve footer grouping without inline styles under enforced CSP. */
 .footer-meta,.footer-contact{display:inline-block}
 .footer-meta{margin-inline-end:.6em}
+
+
+/* Optional one-line feedback; uses the same separators and palette as route pages. */
+.tool-feedback{
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  margin-top:2rem;padding:1.05rem 0;
+  border-top:1px solid var(--line);
+}
+.tool-feedback[hidden],.tool-feedback-options[hidden],.tool-feedback-status[hidden]{display:none!important}
+.tool-feedback-question{font-size:.94rem;line-height:1.35;font-weight:600;white-space:nowrap}
+.tool-feedback-options{display:flex;flex-shrink:0;align-items:center;gap:.4rem}
+.tool-feedback-options button{
+  appearance:none;min-width:3.35rem;min-height:2.75rem;padding:.35rem .55rem;
+  border:1px solid var(--line);border-radius:2px;background:transparent;
+  color:var(--ink);font:inherit;font-weight:650;font-size:.9rem;line-height:1.15;
+  cursor:pointer;
+}
+.tool-feedback-options button:hover{background:var(--stage-heading-wash);border-color:var(--accent)}
+.tool-feedback-options button:disabled{opacity:.6;cursor:default}
+.tool-feedback-status{font-size:.9rem;font-weight:650;color:var(--accent-dark);white-space:nowrap}
+.feedback-sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+@media (max-width:340px){
+  .tool-feedback{gap:.25rem}
+  .tool-feedback-question{font-size:.86rem}
+  .tool-feedback-options{gap:.25rem}
+  .tool-feedback-options button{min-width:3rem;padding:.25rem .3rem;font-size:.86rem}
+}
+@media (forced-colors:active){
+  .tool-feedback-options button{border-color:ButtonText;color:ButtonText}
+  .tool-feedback-options button:hover{background:Highlight;color:HighlightText}
+  .tool-feedback-status{color:CanvasText}
+}
