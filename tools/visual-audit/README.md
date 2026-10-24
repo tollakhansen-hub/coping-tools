@@ -58,3 +58,5 @@ Additional checks: mobile touch-context audit; axe-core WCAG 2.0/2.1/2.2 AA and 
 Use `bash run.sh https://YOUR-PREVIEW.example --full` for a preview. The `--quick` and default modes remain lightweight. All tests use GET or HEAD; they never POST to the installation counter or modify production data. Offline browser storage is isolated to the disposable Chromium context.
 
 Limitations: these tests do not prove WCAG compliance, installability on iOS/Android, screen-reader usability, cognitive clarity, or protection against attacks. Manually inspect screenshots, keyboard focus and zoom/reflow, use TalkBack, and test real installation and service-worker upgrades. HEAD failures may need verification when servers do not support HEAD. The keyboard focus-outline test is heuristic and may overreport.
+
+CSP note: the visual and automated axe scan contexts bypass the production CSP only to inject axe-core (nonce CSP otherwise blocks test scripts). The separate PWA/offline browser context preserves the real CSP and records CSP console errors. A clean audit cannot certify CSP correctness on every route.
