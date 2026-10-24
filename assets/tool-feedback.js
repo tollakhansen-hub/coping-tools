@@ -1,4 +1,4 @@
-/* One small, optional feedback action per route. No browser identifiers or storage. */
+/* Optional one-line feedback. One independent answer per route per tab session. */
 document.querySelectorAll("[data-tool-feedback]").forEach(section => {
   const page = section.dataset.feedbackPage;
   const question = section.querySelector(".tool-feedback-question");
@@ -6,9 +6,30 @@ document.querySelectorAll("[data-tool-feedback]").forEach(section => {
   const status = section.querySelector(".tool-feedback-status");
   const buttons = [...section.querySelectorAll("[data-feedback-vote]")];
   if (!page || !question || !choices || !status || buttons.length !== 2 || !window.fetch) return;
+
+  // Page-specific key: voting here never blocks voting on another route.
+  const sessionKey = "coping-feedback-v1:" + page;
+  const hasVoted = () => {
+    try { return sessionStorage.getItem(sessionKey) === "sent"; }
+    catch { return false; }
+  };
+  const markVoted = () => {
+    try { sessionStorage.setItem(sessionKey, "sent"); }
+    catch { /* Feedback still succeeds if tab storage is unavailable. */ }
+  };
+
   let sending = false;
-  let submitted = false;
+  let submitted = hasVoted();
+  const thank = () => {
+    question.textContent = "Was this useful?";
+    choices.hidden = true;
+    status.textContent = "Thank you";
+    status.classList.remove("feedback-sr-only");
+    status.hidden = false;
+  };
+
   section.hidden = false;
+  if (submitted) thank();
 
   buttons.forEach(button => button.addEventListener("click", async () => {
     if (sending || submitted) return;
@@ -24,16 +45,14 @@ document.querySelectorAll("[data-tool-feedback]").forEach(section => {
       });
       if (!response.ok) throw new Error("Feedback unavailable");
       submitted = true;
-      choices.hidden = true;
-      status.textContent = "Thank you";
-      status.hidden = false;
-      question.textContent = "Was this useful?";
+      markVoted();
+      thank();
     } catch {
       question.textContent = "Try again?";
-      // Announce the error without adding a second visual line.
+      // Keep an error announcement without making the controls a second line.
       status.textContent = "Feedback could not be sent. Please try again.";
-      status.hidden = false;
       status.classList.add("feedback-sr-only");
+      status.hidden = false;
     } finally {
       sending = false;
       if (!submitted) buttons.forEach(b => { b.disabled = false; });
