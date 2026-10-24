@@ -1,8 +1,24 @@
 // Read-only companion for --full. Never sends install-counter events.
-import { chromium } from 'playwright-core';
 import axe from 'axe-core';
+import { execFileSync } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+
+// Playwright's Android default browser-cache discovery throws during import.
+// Configure Termux before loading playwright-core, including for direct node runs.
+process.env.PLAYWRIGHT_BROWSERS_PATH ||= '0';
+const { chromium } = await import('playwright-core');
+
+function findChromium() {
+  if (process.env.CHROMIUM_PATH) return process.env.CHROMIUM_PATH;
+  for (const name of ['chromium-browser', 'chromium']) {
+    try {
+      const executable = execFileSync('which', [name], { encoding: 'utf8' }).trim();
+      if (executable) return executable;
+    } catch { /* Try the next installed browser. */ }
+  }
+  throw new Error('Chromium not found; run bash setup-termux.sh');
+}
 
 const [baseURL, outDir] = process.argv.slice(2);
 if (!baseURL || !outDir) throw Error('Usage: node deep-audit.mjs BASE_URL REPORT_DIRECTORY');
@@ -10,7 +26,7 @@ const origin = new URL(baseURL).origin;
 const visual = JSON.parse(await readFile(path.join(outDir, 'report.json'), 'utf8'));
 const urls = [...new Set(visual.results.map(x => x.url))];
 const browser = await chromium.launch({
-  executablePath: process.env.CHROMIUM_PATH,
+  executablePath: findChromium(),
   headless: true, args: ['--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--jitless']
 });
 const pages = [], uniqueLinks = new Set(), metadataIssues = [], headerWarnings = [];
