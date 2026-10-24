@@ -21,7 +21,7 @@ document.querySelectorAll("[data-tool-feedback]").forEach(section => {
   let sending = false;
   let submitted = hasVoted();
   const thank = () => {
-    question.textContent = "Was this useful?";
+    question.textContent = "Was this page useful?";
     choices.hidden = true;
     status.textContent = "Thank you";
     status.classList.remove("feedback-sr-only");
