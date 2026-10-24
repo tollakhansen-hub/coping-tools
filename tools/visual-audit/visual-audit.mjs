@@ -83,6 +83,8 @@ for (const url of urls) {
   for (const vp of viewports) {
     for (const scheme of schemes) {
       const context = await browser.newContext({
+        // Needed only for injected axe-core: pages enforce a nonce CSP.
+        bypassCSP: true,
         viewport: { width: vp.width, height: vp.height },
         colorScheme: scheme,
         deviceScaleFactor: 1,
