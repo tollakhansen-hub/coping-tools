@@ -323,3 +323,10 @@ await writeFile(path.join(outDir, 'report.md'), md.join('\n'));
 console.log(`\nReport: ${path.join(outDir, 'report.md')}`);
 console.log(`Screenshots: ${shotsDir}`);
 console.log(JSON.stringify(summary, null, 2));
+
+// Keep quick/default unchanged. Full mode adds isolated read-only deep checks.
+if (full) {
+  console.log('\nStarting extended checks...');
+  execFileSync(process.execPath, [path.resolve('deep-audit.mjs'), baseURL, outDir], { stdio: 'inherit' });
+}
+
