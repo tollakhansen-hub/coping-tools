@@ -27,6 +27,8 @@ function sameOriginLink(href, parent) {
 }
 for (const url of urls) {
   const context = await browser.newContext({
+    // Permit audit-only axe injection; offline smoke test below uses normal CSP.
+    bypassCSP: true,
     viewport: {width:412,height:915}, isMobile:true, hasTouch:true,
     colorScheme:'light', reducedMotion:'reduce', serviceWorkers:'allow'
   });
@@ -131,12 +133,14 @@ for(const url of [...uniqueLinks].sort()) {
   links.push({url,...result});
 }
 const brokenLinks=links.filter(x=>!x.ok);
-const pwa={manifest:null,icons:[],serviceWorker:null,offline:[],error:null};
+const pwa={manifest:null,icons:[],serviceWorker:null,offline:[],browserErrors:[],error:null};
 const context=await browser.newContext({
   viewport:{width:412,height:915},isMobile:true,hasTouch:true,serviceWorkers:'allow'
 });
 try {
   const page=await context.newPage();
+  // This context does NOT bypass production CSP.
+  page.on('console',message=>{if(message.type()==='error')pwa.browserErrors.push(message.text());});
   await page.goto(origin+'/',{waitUntil:'load',timeout:20000});
   pwa.manifest=await safe(async()=>{
     const href=await page.locator('link[rel="manifest"]').first().getAttribute('href');
@@ -189,7 +193,8 @@ const summary={
   manifestAndIconsOk:!!pwa.manifest?.ok&&pwa.icons.every(x=>x.ok),
   serviceWorkerReady:!!pwa.serviceWorker?.ready,
   offlineRoutesPassed:pwa.offline.length===3&&pwa.offline.every(x=>x.loaded&&x.correctContent),
-  browserErrors:pages.filter(x=>x.error||x.axeError).length
+  browserErrors:pages.filter(x=>x.error||x.axeError).length,
+  normalCspConsoleErrors:pwa.browserErrors.filter(x=>/content security policy|refused to (load|execute|connect)/i.test(x)).length
 };
 await writeFile(path.join(outDir,'deep-report.json'),JSON.stringify({
   summary,pages,metadataIssues,links,brokenLinks,headerWarnings,pwa
@@ -215,6 +220,7 @@ const lines=[
   '## PWA',
   '- Manifest: '+JSON.stringify(pwa.manifest),
   '- Service worker: '+JSON.stringify(pwa.serviceWorker),
+  '- Real-CSP console errors: '+JSON.stringify(pwa.browserErrors),
   ...pwa.offline.map(x=>'- '+JSON.stringify(x)),
   ...(pwa.error?['- Error: '+pwa.error]:[]),
   '',
