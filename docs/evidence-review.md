@@ -2,6 +2,32 @@
 
 Internal review record for coping.tools. This file is excluded from deployed static assets.
 
+## 25 October 2026 — My mind won’t stop: focused evidence and usability review
+
+Scope: focused web-based source check and gap search, not a systematic review, independent clinical validation, or exhaustive database search. Public instructions remain brief; no new evidence panel or stronger efficacy claim.
+
+### Questions and search record
+- Questions: what supports worry postponement on its own; how closely do studied interventions match this page; what conflicting findings or practical gaps affect the user?
+- Search date: 25 October 2026. Used web search to locate PubMed/PMC records, publisher articles and author/university repositories; followed the route's existing citations. No direct exhaustive PsycINFO, CENTRAL or trial-registry search was performed.
+- Queries included `worry postponement randomized trial systematic review 2025 2026 repetitive negative thinking`, `brief cognitive defusion worry rumination randomized trial single session`, the exact titles of the McCarrick and Versluis trials, `Worry Postponement From the Metacognitive Perspective`, and the Stenzel corrigendum PMID 41592808.
+- Prioritised systematic reviews and controlled outcome studies relevant to worry, rumination, postponement and brief self-help; retained null and adverse-direction findings. General treatment studies were treated as indirect evidence. Commentary, commercial advice, protocols and unrelated digital interventions were not used to establish efficacy.
+- Access limits: source access varied; no formal risk-of-bias assessment, duplicate screening, complete citation chaining or supplementary-data appraisal. No claim of comprehensive coverage or absence of other relevant trials.
+
+### Evidence decisions
+- Dippel, Brosschot and Verkuil, DOI: https://doi.org/10.1007/s41811-023-00193-x. Full-text PDF inspected: https://www.piekeren.com/wp-content/uploads/2024/03/Dippel.2023_Worry-postponement-meta-analysis.pdf. Seven randomized trials, 999 participants; small short-term effects versus worry registration. Practice extended over days/weeks; long-term follow-up was lacking. Supports cautious background wording, not immediate benefit from the site's exact exercise.
+- Versluis et al., PMID: https://pubmed.ncbi.nlm.nih.gov/26511764/. Abstract reviewed. Online trial recruited 996 people; 361 completed. No between-group benefit for worry or subjective health complaints. High attrition and the online setting matter when applying results to unguided self-help. Retain mixed-evidence wording.
+- McCarrick et al., DOI: https://doi.org/10.1080/08870446.2025.2590072. Full text inspected through https://eprints.whiterose.ac.uk/id/eprint/235230/. Confirmed the earlier record's distinction between benefit versus standard postponement and null results versus active control, and the higher reported worry frequency in standard postponement versus active control (Table 3). Retain stop/switch permission; this is not proof of harm from the site's adaptation.
+- Important intervention mismatch: the McCarrick if–then plans tied the scheduled worry period to a habitual activity and included adherence checks. The site's example instead cues noticing the returning worry and resuming the current activity. It is not the tested planning procedure. Retain explicit adaptation status; do not attribute the trial's effect to this example or claim superiority for it.
+- Krzikalla et al. (2024), DOI: https://doi.org/10.32872/cpe.12741; PMID: https://pubmed.ncbi.nlm.nih.gov/39119056/. Abstract and accessible indexed methods/discussion reviewed; full-text retrieval was intermittent. Relevant study absent from the public reference list: 47 participants with GAD and 35 with hypochondriasis, two therapist sessions with six days of practice, waitlist comparison. The significant post-hoc between-group worry benefit was in GAD; results for hypochondriasis were limited. Small diagnostic subgroups, self-report, therapist involvement and passive comparator prevent treating this as validation of the brief site exercise. Record as background; no additional public paragraph needed.
+- Stenzel et al., original DOI: https://doi.org/10.1017/S0033291725000017; correction: https://pmc.ncbi.nlm.nih.gov/articles/PMC12902165/. Original publisher text and full correction inspected. Correction changes subgroup classifications/estimates; overall moderate effect remains. Public overall summary remains appropriate. This is a recheck of a previously recorded correction, not a newly discovered correction.
+- WHO guidance remains principle-level support rather than validation of this page's exact noticing/action prompts. The exploratory brief-defusion search did not establish validation of the exact exercises. Absence of validation in this focused search is not proof that no relevant study exists.
+
+### Approved practical changes
+- Add a brief connection from the scheduled time to the existing “Sort it once” exercise so the visitor has a next step when that time arrives.
+- Replace the postponement stop instruction with plain language and an explicit pointer to “Let the thought come along”. This offers an alternative, not a claim that it is more effective or safer for everyone.
+- These are editorial usability decisions, not trial-tested modifications. Preserve the remaining exercises, optional if–then example, public evidence summary, references and layout. Update this route's review date and sitemap modification date only.
+- Keep the other exercises: this focused check found no basis for removing them, but does not establish their efficacy. Do not infer whole-route safety or effectiveness from evidence for broader treatments.
+
 ## 30 September 2026
 
 ### There’s too much at once — cognitive offloading
