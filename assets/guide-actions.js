@@ -69,13 +69,29 @@
     put(GREEN+' RG .8 w '+L+' '+y.toFixed(2)+' m '+(W-R)+' '+y.toFixed(2)+' l S');y-=28;
     para(guide.title,{size:21,leading:26,bold:true,after:11});
     para(guide.intro,{size:11,leading:15.2,after:10});
+    // Measure each stage before placing its heading. If the complete stage fits
+    // on a page, keep it together; otherwise keep the heading with the first
+    // instructions and allow the remaining paragraphs to flow naturally.
+    const textHeight=(str,size,leading,after,indent=0)=>String(str).split(/\n\s*\n/).reduce(
+      (total,part)=>total+wrap(part.replace(/\n/g,' '),size,W-R-L-indent).length*leading+after,0
+    );
     for(const section of guide.sections){
-      ensure(112);y-=11;
+      let needed=11+17
+        +textHeight(section.stage.toUpperCase(),8.8,12,1)
+        +textHeight(section.title,14,18,8);
+      for(const block of section.blocks){
+        if(block.style==='h3')needed+=6+textHeight(block.text,11.6,16,6);
+        else if(block.style==='li')needed+=textHeight('•  '+block.text,10.6,14.6,3,7);
+        else needed+=textHeight(block.text,10.6,14.6,5);
+      }
+      const fullPageSpace=H-54-68;
+      ensure(needed+8 <= fullPageSpace ? needed+8 : 150);
+      y-=11;
       put(GREEN+' RG .8 w '+L+' '+y.toFixed(2)+' m '+(L+45)+' '+y.toFixed(2)+' l S');y-=17;
       para(section.stage.toUpperCase(),{size:8.8,bold:true,color:GREEN,leading:12,after:1});
       para(section.title,{size:14,bold:true,leading:18,after:8});
       for(const block of section.blocks){
-        if(block.style==='h3'){y-=6;para(block.text,{size:11.6,bold:true,leading:16,after:6});}
+        if(block.style==='h3'){ensure(85);y-=6;para(block.text,{size:11.6,bold:true,leading:16,after:6});}
         else if(block.style==='li')para('•  '+block.text,{indent:7,after:3});
         else para(block.text,{bold:block.style==='bold'});
       }
