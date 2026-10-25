@@ -360,7 +360,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .org-section p{font-size:1.02rem;max-width:40rem;line-height:1.56;margin:.45rem 0 .9rem}
 .org-section .org-action{display:inline-block;font-size:.98rem;font-weight:720;margin:.15rem 0 .4rem}
 .org-section .org-aside{font-size:.91rem;color:var(--muted);margin-top:.8rem}
-@media(max-width:520px){.head-row nav{min-width:0;text-align:right}.organisation-link{white-space:normal;text-align:right;max-width:14rem;font-size:.85rem;font-weight:600;line-height:1.16;letter-spacing:-.012em;padding:.36rem 0}}
+@media(max-width:520px){.head-row nav{min-width:0;text-align:right}.organisation-link{white-space:normal;text-align:right;max-width:14rem;font-size:.85rem;font-weight:600;line-height:1.16;letter-spacing:-.012em;padding:.36rem 0}.organisation-link .organisation-line{display:block;white-space:nowrap}}
 @media(max-width:380px){.head-row{gap:.55rem}.organisation-link{font-size:.82rem}}
 
 
