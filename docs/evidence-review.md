@@ -2,6 +2,16 @@
 
 Internal review record for coping.tools. This file is excluded from deployed static assets.
 
+## 25 October 2026 — Four-route focused evidence and usability review
+
+Scope: focused review of the current four remaining coping routes against existing sources and relevant 2026 findings. Not a systematic review, independent clinical validation, formal risk-of-bias assessment, or user test. Keep the scientific detail here rather than adding to public route instructions.
+
+- **My body won't settle:** Evidence concerns fuller PMR protocols and heterogeneous breathwork methods; the short three-place and untimed breathing adaptations have not been specifically validated. A matched-comparator paced-breathing RCT did not find superior stress reduction (PMID 38092805). Retain alternatives, consent and stop/switch options. Remove an immediate request to check whether the first exercise made a difference.
+- **There's too much at once:** Offloading meta-analysis (PMID 40500483) supports memory-task performance, not treatment of overwhelm. A study of reliable reminders (PMID 42613406) highlights both shifted intention maintenance and impairment if trusted reminders unexpectedly disappear. Retain optional reminder wording and clarify safety/deadline exceptions to deferral.
+- **I feel low or shut down:** A 2026 BA meta-analysis (PMID 42492146) found benefits for structured treatment, not this route's tiny actions. A 2026 digital action-plan experiment (PMID 42626677) found very small effects; neither establishes the site's exact exercise. Keep rest and activity optional and include a quiet prompt to seek trusted or professional support if low mood persists or impairs daily functioning.
+- **Something has happened:** WHO psychological first-aid guidance supports immediate safety, practical needs and voluntary support without forced recounting. A PFA systematic review (PMID 36300605) found limited/heterogeneous outcome evidence, and a 2026 *group* PFA video-analogue trial (PMID 42561812) found no overall two-week benefit and an adverse-direction subgroup result; neither tests this route's simple text. Preserve existing caveats and avoid PTSD-prevention promises. Add a safety-first sentence and express that help can be practical without retelling an event.
+- These are **five editorial clarity/safeguarding adjustments**, not experimentally tested therapeutic changes. Preserve public evidence notes and links, tools, layout and accessibility structure. Update the four public review dates and sitemap modification dates on the preview branch only.
+
 ## 25 October 2026 — My mind won’t stop: focused evidence and usability review
 
 Scope: focused web-based source check and gap search, not a systematic review, independent clinical validation, or exhaustive database search. Public instructions remain brief; no new evidence panel or stronger efficacy claim.
