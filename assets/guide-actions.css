@@ -19,9 +19,9 @@
   .shell{width:auto!important;max-width:none!important;margin:0!important}
   .tool-page h1{font-family:Georgia,serif!important;color:#111!important;font-size:21pt!important;line-height:1.15!important;margin:0 0 10pt!important}
   .tool-page .route-intro{color:#222!important;font-size:10.5pt!important;line-height:1.4!important;margin:0 0 14pt!important}
-  .tool-page .tool-section,.tool-page .tool-section+.tool-section{margin:0!important;padding:10pt 0 4pt!important;border-top:1px solid #bbb!important;break-inside:auto!important}
+  .tool-page .tool-section,.tool-page .tool-section+.tool-section{margin:0!important;padding:10pt 0 4pt!important;border-top:1px solid #bbb!important;break-inside:avoid-page!important;page-break-inside:avoid!important}
   .tool-page .tool-section::before,.tool-page .stage-heading::before{content:none!important;display:none!important}
-  .tool-page .stage-heading{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;margin:0 0 8pt!important;break-after:avoid-page!important}
+  .tool-page .stage-heading{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;margin:0 0 8pt!important;break-inside:avoid-page!important;break-after:avoid-page!important;page-break-after:avoid!important}
   .tool-page .stage-heading h2{font-size:9pt!important;letter-spacing:.04em!important;line-height:1.25!important;color:#333!important;margin:0 0 3pt!important}
   .tool-page .stage-heading .tool-title{font-size:13pt!important;line-height:1.25!important;color:#111!important;margin:0!important}
   .tool-page .tool-section p,.tool-page .tool-section li{font-size:10pt!important;line-height:1.38!important;color:#111!important;margin:4pt 0 6pt!important}
