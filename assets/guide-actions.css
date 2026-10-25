@@ -1,0 +1,36 @@
+/* Quiet, consistently placed guide actions, opposite “All tools”. */
+.guide-nav-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;column-gap:1rem;row-gap:.15rem;margin-bottom:24px}
+.guide-nav-row .back{margin-bottom:0;min-height:44px;display:inline-flex;align-items:center}
+.guide-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.65rem;margin-inline-start:auto}
+.guide-actions[hidden]{display:none!important}
+.guide-action{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.35rem;min-height:44px;border:0;border-radius:0;background:transparent;color:var(--accent-dark);font:inherit;font-size:.94rem;font-weight:650;line-height:1.25;white-space:nowrap;cursor:pointer;padding:.45rem .15rem;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:.16em}
+.guide-action:hover{color:var(--ink);text-decoration-color:currentColor}
+.guide-action svg{display:block;width:16px;height:16px;flex:none;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.guide-action:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+@media(max-width:340px){.guide-actions{gap:.45rem}.guide-action{font-size:.88rem}}
+@media(forced-colors:active){.guide-action{color:LinkText;text-decoration:underline}.guide-action:hover{color:LinkText}}
+
+/* Browser printing uses the *same* on-page guide text; research stays online. */
+@media print{
+  @page{margin:14mm}
+  html,body{background:#fff!important;color:#111!important;font-family:Arial,Helvetica,sans-serif!important;font-size:10pt!important;line-height:1.4!important}
+  .site-head,.guide-nav-row,.related,.trust,.tool-feedback,footer,.skip-link{display:none!important}
+  main,.tool-page main{padding:0!important;margin:0!important}
+  .shell{width:auto!important;max-width:none!important;margin:0!important}
+  .tool-page h1{font-family:Georgia,serif!important;color:#111!important;font-size:21pt!important;line-height:1.15!important;margin:0 0 10pt!important}
+  .tool-page .route-intro{color:#222!important;font-size:10.5pt!important;line-height:1.4!important;margin:0 0 14pt!important}
+  .tool-page .tool-section,.tool-page .tool-section+.tool-section{margin:0!important;padding:10pt 0 4pt!important;border-top:1px solid #bbb!important;break-inside:auto!important}
+  .tool-page .tool-section::before,.tool-page .stage-heading::before{content:none!important;display:none!important}
+  .tool-page .stage-heading{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;margin:0 0 8pt!important;break-after:avoid-page!important}
+  .tool-page .stage-heading h2{font-size:9pt!important;letter-spacing:.04em!important;line-height:1.25!important;color:#333!important;margin:0 0 3pt!important}
+  .tool-page .stage-heading .tool-title{font-size:13pt!important;line-height:1.25!important;color:#111!important;margin:0!important}
+  .tool-page .tool-section p,.tool-page .tool-section li{font-size:10pt!important;line-height:1.38!important;color:#111!important;margin:4pt 0 6pt!important}
+  .tool-page .tool-section h3:not(.tool-title){font-size:11pt!important;margin:10pt 0 4pt!important;break-after:avoid-page!important}
+  .tool-page .action-pair,.tool-page .action-sequence{break-inside:avoid-page!important;margin:5pt 0 8pt!important}
+  .tool-page .action-pair p,.tool-page .action-sequence p{margin:1pt 0!important}
+  .tool-page .short-lines{margin:4pt 0!important}
+  .tool-page .short-lines li{margin:1pt 0!important}
+  .tool-page .urgent-note{display:block!important;break-inside:avoid-page!important;border-top:1px solid #bbb!important;padding-top:10pt!important;margin:18pt 0 0!important;color:#111!important;font-size:10pt!important}
+  a[href]:after{content:none!important}
+  p,li{orphans:2;widows:2}
+}
