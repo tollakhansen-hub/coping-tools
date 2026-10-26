@@ -98,7 +98,9 @@
     }
     ensure(65);y-=14;
     put(GREEN+' RG .8 w '+L+' '+y.toFixed(2)+' m '+(W-R)+' '+y.toFixed(2)+' l S');y-=23;
-    para(guide.urgent,{size:10,bold:true,leading:14});newPage();
+    para(guide.urgent,{size:10,bold:true,leading:14});
+    para('More about this guide: coping.tools'+guide.path,{size:8.6,leading:11,color:MUTED,after:0});
+    newPage();
     const objects=['<< /Type /Catalog /Pages 2 0 R >>','','<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>','<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>'];
     const kids=[];
     for(const page of pages){
