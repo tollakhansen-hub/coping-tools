@@ -478,3 +478,10 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
   body.home-page main{padding-bottom:20px}
   body.home-page .home-explainer p{margin-bottom:0}
 }
+
+/* Calm visual cue on homepage disclaimer, without a warning box or added copy. */
+body.home-page .home-explainer p{
+  margin:0;
+  padding-left:14px;
+  border-left:3px solid var(--line);
+}
