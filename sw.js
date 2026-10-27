@@ -1,4 +1,4 @@
-const CACHE = "coping-tools-v28";
+const CACHE = "coping-tools-v29";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/how-tools-are-chosen/","/update-history/","/privacy/"]);
 const CORE = [
   "/assets/pebble-icon-96-20261006.png",
@@ -39,6 +39,7 @@ const CORE = [
   "/assets/styles.css?v=20261025-two-line-professional-nav",
   "/assets/styles.css?v=20261027-home-footer-spacing",
   "/assets/styles.css?v=20261027-disclaimer-marker",
+  "/assets/styles.css?v=20261027-support-options",
   "/manifest.webmanifest"
 ];
 const ALLOWED = new Set(CORE);
