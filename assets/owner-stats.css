@@ -1,0 +1,34 @@
+/* Minimal, mobile-first owner-only dashboard. No external UI dependencies. */
+.owner-stats-page .owner-container{max-width:800px;padding-top:1.65rem;padding-bottom:3rem}
+.owner-stats-page [hidden]{display:none!important}
+.owner-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.owner-heading h1{margin-bottom:.3rem}
+.owner-subtitle{margin-top:0;max-width:42rem}
+#owner-status{font-size:.9rem;min-height:1.5em;color:var(--muted)}
+.owner-signin{max-width:34rem;margin-top:1rem;border-top:1px solid var(--line);padding-top:1rem}
+.owner-signin h2{margin-bottom:.5rem}
+.owner-signin form{display:flex;flex-direction:column;gap:.65rem;margin:1rem 0}
+.owner-signin label{font-weight:650}
+.owner-signin input{width:100%;max-width:29rem;font:inherit;min-height:2.75rem;padding:.55rem .7rem;border:1px solid var(--line);border-radius:3px;color:var(--ink);background:var(--paper)}
+.owner-stats-page button{font:inherit;font-size:.94rem;font-weight:650;border:1px solid var(--accent);border-radius:3px;color:var(--ink);background:transparent;min-height:2.65rem;padding:.5rem .8rem;cursor:pointer}
+.owner-stats-page button:hover{background:var(--stage-heading-wash)}
+.owner-stats-page button:disabled{opacity:.65;cursor:wait}
+.owner-secondary{white-space:nowrap;flex-shrink:0}
+.owner-stats-page section{margin-top:1.5rem}
+.owner-stats-page section h2{font-size:1.2rem;margin-bottom:.7rem}
+.owner-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.owner-summary>div{display:flex;flex-direction:column;gap:.25rem;padding:.65rem 0;border-top:1px solid var(--line)}
+.owner-summary span{font-size:.84rem;color:var(--muted)}
+.owner-summary strong{font-size:1.8rem;font-weight:650;line-height:1.2;font-variant-numeric:tabular-nums}
+.owner-table-scroll{width:100%;overflow-x:auto}
+.owner-stats-page table{width:100%;border-collapse:collapse;font-size:.94rem}
+.owner-stats-page th,.owner-stats-page td{border-bottom:1px solid var(--line);padding:.65rem .32rem;text-align:left;vertical-align:middle}
+.owner-stats-page th{font-size:.84rem}
+.owner-stats-page th:first-child,.owner-stats-page td:first-child{padding-left:0}
+.owner-stats-page .number{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.owner-note,.owner-help,.owner-footer-note{font-size:.85rem;color:var(--muted);line-height:1.5}
+.owner-controls{display:flex;align-items:center;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.owner-footer-note{margin-top:2rem}
+@media (min-width:620px){.owner-summary{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:360px){.owner-stats-page table{font-size:.86rem}.owner-stats-page th,.owner-stats-page td{padding:.65rem .17rem}.owner-heading{flex-wrap:wrap}}
+@media (prefers-reduced-motion:reduce){.owner-stats-page *{scroll-behavior:auto}}
