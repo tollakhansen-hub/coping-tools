@@ -38,7 +38,8 @@
     element.replaceChildren(rows);
   }
   function sumRecent(records, key) {
-    return (Array.isArray(records) ? records : []).reduce((n, row) => n + (row[key] ? Number(row.count || 0) : 0), 0);
+    const field = key === 'print' || key === 'pdf' ? 'action' : 'answer';
+    return (Array.isArray(records) ? records : []).reduce((n, row) => n + (row[field] === key ? Number(row.count || 0) : 0), 0);
   }
   function render(payload) {
     const guides = payload.guides?.byPage || {}, feedback = payload.feedback?.byPage || {};
