@@ -435,7 +435,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 
 /* Preserve footer grouping without inline styles under enforced CSP. */
 .footer-meta,.footer-contact{display:inline-block}
-.footer-meta{margin-inline-end:.6em}
+.footer-meta{margin-inline-end:0}
 
 
 /* Optional one-line feedback; uses the same separators and palette as route pages. */
