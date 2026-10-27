@@ -500,6 +500,47 @@ export default {
     headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
     headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
     const isHTML = headers.get("Content-Type")?.toLowerCase().includes("text/html");
+    const isOwnerDashboard = isHTML && (
+      url.pathname === "/private-stats/" ||
+      url.pathname === "/private-stats" ||
+      url.pathname === "/private-stats/index.html"
+    );
+    // Private statistics are for the maintainer, not part of the audience:
+    // prevent Cloudflare's automatic Web Analytics beacon from executing here.
+    // The site's normal policy permits the beacon, so this must be route-specific.
+    // Keep external analytics scripts off the allowlist and do not grant them
+    // a nonce via the normal HTMLRewriter on this page.
+    if (isOwnerDashboard) {
+      headers.set("Cache-Control", "private, no-store, no-transform");
+      headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+      headers.set("Referrer-Policy", "no-referrer");
+      headers.set("Content-Security-Policy", [
+        "default-src 'none'",
+        "script-src 'self' https://challenges.cloudflare.com",
+        "script-src-elem 'self' https://challenges.cloudflare.com",
+        "script-src-attr 'none'",
+        "connect-src 'self' https://challenges.cloudflare.com",
+        "style-src 'self'",
+        "font-src 'self'",
+        "img-src 'self' data:",
+        "frame-src https://challenges.cloudflare.com",
+        "worker-src 'none'",
+        "manifest-src 'none'",
+        "object-src 'none'",
+        "base-uri 'none'",
+        "frame-ancestors 'none'",
+        "form-action 'none'"
+      ].join("; "));
+      headers.delete("Content-Security-Policy-Report-Only");
+      headers.delete("ETag");
+      headers.delete("Last-Modified");
+      headers.delete("Content-Length");
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      });
+    }
     const nonce = isHTML ? btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(24)))) : null;
     headers.set("Content-Security-Policy", contentSecurityPolicy(nonce));
     headers.delete("Content-Security-Policy-Report-Only");
