@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Private statistics | coping.tools</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#f7f4ed">
+<link rel="icon" href="/assets/pebble-icon-96-20261006.png">
+<link rel="stylesheet" href="/assets/styles.css?v=20261027-support-options">
+<link rel="stylesheet" href="/assets/owner-stats.css?v=20261027-v1">
+<script src="/assets/owner-stats.js?v=20261027-v1" defer></script>
+</head>
+<body class="owner-stats-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-head"><div class="shell"><a class="wordmark" href="/" aria-label="coping.tools home">coping<span class="wordmark-dot" aria-hidden="true">.</span>tools</a></div></header>
+<main id="main"><div class="shell owner-container">
+<div class="owner-heading"><div><h1>Private statistics</h1><p class="owner-subtitle">Useful votes, guide actions and app installs — in one place.</p></div><button id="owner-logout" type="button" class="owner-secondary" hidden>Sign out</button></div>
+<p id="owner-status" role="status" aria-live="polite">Checking access…</p>
+<section id="owner-signin" class="owner-signin" aria-labelledby="signin-title" hidden>
+<h2 id="signin-title">Owner sign in</h2>
+<p>Enter your existing statistics token. This device stays signed in for 30 days, or until you sign out.</p>
+<form id="owner-form">
+<label for="owner-token">Statistics token</label>
+<input type="password" id="owner-token" name="token" required autocomplete="current-password" autocapitalize="off" spellcheck="false" />
+<button type="submit" id="owner-submit">View statistics</button>
+</form>
+<p class="owner-help">The token is not saved in this page or URL. A secure, browser-only sign-in cookie is used.</p>
+</section>
+<div id="owner-data" hidden>
+<section aria-labelledby="overview-title"><h2 id="overview-title">All-time totals</h2>
+<div class="owner-summary">
+<div><span>Print requests</span><strong id="count-print">0</strong></div>
+<div><span>PDF saves</span><strong id="count-pdf">0</strong></div>
+<div><span>Useful — Yes</span><strong id="count-yes">0</strong></div>
+<div><span>Useful — No</span><strong id="count-no">0</strong></div>
+</div></section>
+<section aria-labelledby="guide-title"><h2 id="guide-title">Printing and PDFs</h2>
+<div class="owner-table-scroll"><table><thead><tr><th scope="col">Coping route</th><th scope="col" class="number">Print</th><th scope="col" class="number">Save PDF</th></tr></thead><tbody id="owner-guides"></tbody></table></div>
+<p class="owner-note">These count button presses, not completed print jobs. A PDF save counts when its download is initiated.</p>
+</section>
+<section aria-labelledby="feedback-title"><h2 id="feedback-title">Was this page useful?</h2>
+<div class="owner-table-scroll"><table><thead><tr><th scope="col">Coping route</th><th scope="col" class="number">Yes</th><th scope="col" class="number">No</th></tr></thead><tbody id="owner-feedback"></tbody></table></div>
+<p class="owner-note">Votes reflect visitors who chose to respond, not proven clinical effectiveness.</p>
+</section>
+<section aria-labelledby="recent-title"><h2 id="recent-title">Last 30 days</h2><p id="owner-recent">Loading…</p></section>
+<section aria-labelledby="install-title"><h2 id="install-title">App-install actions</h2><p id="owner-installs">Loading…</p></section>
+<div class="owner-controls"><button id="owner-refresh" type="button">Refresh figures</button><span id="owner-refreshed" class="owner-note"></span></div>
+</div>
+<p class="owner-footer-note">Counts are aggregated by route and UTC day. This page is not linked from the public site.</p>
+</div></main>
+</body>
+</html>
