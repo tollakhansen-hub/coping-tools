@@ -183,7 +183,7 @@ p{margin:.65rem 0 1rem;font-size:1.08rem}
 footer{border-top:1px solid var(--line);padding:26px 0 38px}
 .footer-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-bottom:22px}
 .footer-links a{font-size:.94rem}
-.urgent{font-weight:700;font-size:.94rem;margin:.4rem 0 0}
+.urgent{font-weight:400;font-size:.94rem;line-height:1.5;margin:.4rem 0 0}
 /* Quiet boundary note after route choices, before evidence. */
 .urgent-note{margin:1.9rem 0 0}
 .copyright{font-size:.86rem;color:var(--muted);margin-top:18px}
@@ -485,3 +485,6 @@ body.home-page .home-explainer p{
   padding-left:14px;
   border-left:3px solid var(--line);
 }
+
+/* Keep the broader support and emergency note quiet, clear and consistent. */
+.tool-page .urgent-note{font-size:.96rem;line-height:1.5}
