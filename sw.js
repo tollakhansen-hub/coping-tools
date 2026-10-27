@@ -1,4 +1,4 @@
-const CACHE = "coping-tools-v31";
+const CACHE = "coping-tools-v32";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/how-tools-are-chosen/","/update-history/","/privacy/"]);
 const CORE = [
   "/assets/pebble-icon-96-20261006.png",
@@ -17,7 +17,7 @@ const CORE = [
   "/for-organisations/",
   "/how-tools-are-chosen/",
   "/update-history/","/privacy/",
-  "/assets/app-install.js",
+  "/assets/app-install.js?v=20261027-footer-dot",
   "/assets/evidence-expand.js",
   "/assets/tool-feedback.js",
   "/assets/guide-actions.js?v=20261027-action-counts",
