@@ -11,6 +11,11 @@ if("serviceWorker" in navigator){
   });
 }
 if(installLink&&!isStandalone){
+  // The link opens a browser prompt rather than navigating; expose button semantics.
+  installLink.setAttribute("role","button");
+  installLink.addEventListener("keydown",event=>{
+    if(event.key===" "){event.preventDefault();installLink.click()}
+  });
   window.addEventListener("beforeinstallprompt",event=>{event.preventDefault();deferredInstallPrompt=event;setInstallVisible(true)});
   installLink.addEventListener("click",async event=>{event.preventDefault();if(!deferredInstallPrompt)return;trackInstallEvent("pressed");deferredInstallPrompt.prompt();const choice=await deferredInstallPrompt.userChoice;if(choice.outcome==="accepted")trackInstallEvent("accepted");deferredInstallPrompt=null;setInstallVisible(false)});
   window.addEventListener("appinstalled",()=>{trackInstallEvent("installed");deferredInstallPrompt=null;setInstallVisible(false)});

@@ -33,6 +33,8 @@ document.querySelectorAll("[data-tool-feedback]").forEach(section => {
 
   buttons.forEach(button => button.addEventListener("click", async () => {
     if (sending || submitted) return;
+    question.textContent = "Was this page useful?";
+    status.hidden = true;
     sending = true;
     buttons.forEach(b => { b.disabled = true; });
     try {
@@ -48,8 +50,8 @@ document.querySelectorAll("[data-tool-feedback]").forEach(section => {
       markVoted();
       thank();
     } catch {
-      question.textContent = "Try again?";
-      // Keep an error announcement without making the controls a second line.
+      question.textContent = "Not sent. Try again?";
+      // Explain the failure clearly without making the controls a second line.
       status.textContent = "Feedback could not be sent. Please try again.";
       status.classList.add("feedback-sr-only");
       status.hidden = false;
