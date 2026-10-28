@@ -6,6 +6,7 @@ const CORE = [
   "/assets/pebble-icon-192-20261006.png",
   "/assets/pebble-icon-512-20261006.png",
   "/favicon.ico",
+  "/offline.html",
   "/",
   "/body-wont-settle/",
   "/mind-wont-stop/",
