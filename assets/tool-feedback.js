@@ -50,8 +50,8 @@ document.querySelectorAll("[data-tool-feedback]").forEach(section => {
       markVoted();
       thank();
     } catch {
-      question.textContent = "Try again?";
-      // Keep an error announcement without making the controls a second line.
+      question.textContent = "Couldn’t send. Try again?";
+      // Explain the failure clearly without making the controls a second line.
       status.textContent = "Feedback could not be sent. Please try again.";
       status.classList.add("feedback-sr-only");
       status.hidden = false;
