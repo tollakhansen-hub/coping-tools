@@ -118,8 +118,17 @@ self.addEventListener("fetch", event => {
       const hit = await cache.match(key);
       if (hit) return hit;
       if (event.request.mode === "navigate" && PAGES.has(key)) {
-        const home = await cache.match("/");
-        if (home) return home;
+        const offline = await cache.match("/offline.html");
+        if (offline) {
+          return new Response(offline.body, {
+            status: 503,
+            statusText: "Offline guide unavailable",
+            headers: {
+              "Content-Type": "text/html; charset=utf-8",
+              "Cache-Control": "no-store"
+            }
+          });
+        }
       }
       return Response.error();
     }
