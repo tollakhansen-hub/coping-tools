@@ -33,6 +33,8 @@ document.querySelectorAll("[data-tool-feedback]").forEach(section => {
 
   buttons.forEach(button => button.addEventListener("click", async () => {
     if (sending || submitted) return;
+    question.textContent = "Was this page useful?";
+    status.hidden = true;
     sending = true;
     buttons.forEach(b => { b.disabled = true; });
     try {
