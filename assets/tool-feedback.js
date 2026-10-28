@@ -1,4 +1,4 @@
-/* Optional one-line feedback. One independent answer per route per tab session. */
+/* Optional one-line feedback. One independent answer per route per browser profile when local storage is available. */
 document.querySelectorAll("[data-tool-feedback]").forEach(section => {
   const page = section.dataset.feedbackPage;
   const question = section.querySelector(".tool-feedback-question");
@@ -7,15 +7,20 @@ document.querySelectorAll("[data-tool-feedback]").forEach(section => {
   const buttons = [...section.querySelectorAll("[data-feedback-vote]")];
   if (!page || !question || !choices || !status || buttons.length !== 2 || !window.fetch) return;
 
-  // Page-specific key: voting here never blocks voting on another route.
+  // One device-local "answered" flag per route. No identifiers or choices are stored.
+  // Keep the existing key so current tab votes migrate to persistent storage.
   const sessionKey = "coping-feedback-v1:" + page;
   const hasVoted = () => {
+    try { if (localStorage.getItem(sessionKey) === "sent") return true; }
+    catch { /* Browser may disallow persistent storage. */ }
     try { return sessionStorage.getItem(sessionKey) === "sent"; }
     catch { return false; }
   };
   const markVoted = () => {
+    try { localStorage.setItem(sessionKey, "sent"); }
+    catch { /* A private/restricted browser may not retain the flag. */ }
     try { sessionStorage.setItem(sessionKey, "sent"); }
-    catch { /* Feedback still succeeds if tab storage is unavailable. */ }
+    catch { /* A successful response still receives thanks. */ }
   };
 
   let sending = false;
@@ -29,10 +34,27 @@ document.querySelectorAll("[data-tool-feedback]").forEach(section => {
   };
 
   section.hidden = false;
-  if (submitted) thank();
+  if (submitted) {
+    markVoted(); // Promote a previously submitted tab-only vote into local storage.
+    thank();
+  }
+
+  // Keep already-open tabs consistent when another tab successfully submits.
+  window.addEventListener("storage", event => {
+    if (event.key === sessionKey && event.newValue === "sent") {
+      submitted = true;
+      thank();
+    }
+  });
 
   buttons.forEach(button => button.addEventListener("click", async () => {
     if (sending || submitted) return;
+    if (hasVoted()) {
+      submitted = true;
+      markVoted();
+      thank();
+      return;
+    }
     question.textContent = "Was this page useful?";
     status.hidden = true;
     sending = true;
