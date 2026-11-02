@@ -457,6 +457,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .tool-feedback-options button:disabled{opacity:.6;cursor:default}
 .tool-feedback-status{font-size:.9rem;font-weight:650;color:var(--accent-dark);white-space:nowrap}
 .feedback-sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+@media (max-width:380px){
+  .tool-feedback{flex-wrap:wrap}
+  .tool-feedback-question{white-space:normal;min-width:0;flex:1 1 100%}
+  .tool-feedback-status{white-space:normal}
+}
 @media (max-width:340px){
   .tool-feedback{gap:.25rem}
   .tool-feedback-question{font-size:.86rem}
