@@ -362,6 +362,14 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 .org-section .org-aside{font-size:.91rem;color:var(--muted);margin-top:.8rem}
 @media(max-width:520px){.head-row nav{min-width:0;text-align:right}.organisation-link{white-space:normal;text-align:right;max-width:14rem;font-size:.85rem;font-weight:600;line-height:1.16;letter-spacing:-.012em;padding:.36rem 0}.organisation-link .organisation-line{display:block;white-space:nowrap}}
 @media(max-width:380px){.head-row{gap:.55rem}.organisation-link{font-size:.82rem}}
+/* Reflow the homepage header when text is enlarged: preserve both links. */
+@media(max-width:520px){
+  .head-row{flex-wrap:wrap}
+  .head-row nav{max-width:100%;text-align:left}
+  .organisation-link{max-width:100%;overflow-wrap:anywhere;text-align:left}
+  .organisation-link .organisation-line{white-space:normal}
+}
+
 
 
 /* Inline evidence continuation: the link follows the text, including when expanded. */
