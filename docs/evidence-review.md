@@ -1,3 +1,15 @@
+## 3 November 2026 — five-route wording and source review
+
+Scope: focused recheck of the five public guide texts and every linked research/guidance source against the claims and limits stated on the pages. This was not a systematic review, independent clinical validation, or exhaustive search.
+
+- **My body won’t settle:** Rechecked the adult PMR systematic review (PMID 38322293), breathwork meta-analysis (PMID 36624160), coherent-breathing trial (PMID 38092805), one-minute breathing pilot (DOI 10.1080/10615806.2026.2659809), and WHO stress-management guidance. The page distinguishes fuller-method evidence from its short muscle-release and gentle-breathing adaptations, and describes the pilot as preliminary and technique-specific. Retained the stop/switch guidance.
+- **My mind won’t stop:** Rechecked the CBT/RNT meta-analysis and 2026 corrigendum (PMIDs 39916353 and 41592808), worry-postponement meta-analysis (DOI 10.1007/s41811-023-00193-x), 2025 four-arm trial (PMID 41347618), earlier randomized trial (PMID 26511764), and WHO guidance. The page preserves mixed results, including the trial’s comparator-specific worry-duration result, null combined comparison with active control, null sleep findings, and increased reported worry frequency in standard postponement versus active control. The exact short exercises remain explicitly unvalidated.
+- **There’s too much at once:** Rechecked the multitasking/stress-system meta-analysis (PMID 35477383), cognitive-offloading meta-analysis (PMID 40500483), and WHO guidance. The page limits these findings to physiological correlates and memory-task support; it does not claim they treat emotional overwhelm.
+- **I feel low or shut down:** Rechecked the 2026 behavioural-activation meta-analysis (PMID 42492146), 2026 action-planning component study (PMID 42626677), NICE adult-depression guidance, and WHO self-help guidance. The distinction between structured treatment evidence and the route’s brief, unvalidated coping examples remains clear; the action-planning finding is described as very small.
+- **Something has happened:** Rechecked WHO psychological-first-aid guidance, the PFA systematic review (PMID 36300605), 2026 group-PFA analogue trial (PMID 42561812), NICE PTSD/debriefing guidance, and mass-trauma media meta-analysis (PMID 30913350). The page keeps its practical-support principles separate from claims about preventing later disorders, identifies the analogue and observational limits, and retains its immediate-safety caveat.
+
+Decision: no substantive route wording, evidence claim, or source-list changes were needed. Updated all five review dates and sitemap modification dates. Added this public change note and internal review record.
+
 # Evidence review log
 
 Internal review record for coping.tools. This file is excluded from deployed static assets.
