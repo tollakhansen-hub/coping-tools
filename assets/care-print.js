@@ -29,22 +29,7 @@
     if (evidence) evidence.open = false;
   }
 
-  function recordAction(section, action) {
-    const index = section ? resourceSections.indexOf(section) + 1 : 0;
-    if (section && index < 1) return;
-    const page = '/practical-support/' + (index ? 'section-' + index + '/' : 'all/');
-    // Anonymous counts only; never block the user's print or download.
-    fetch('/api/guide-event', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin',
-      keepalive: true,
-      body: JSON.stringify({ page, action })
-    }).catch(() => {});
-  }
-
   function requestPrint(section) {
-    recordAction(section, 'print');
     restore();
     chosenSection = section;
     preparePrint();
@@ -55,12 +40,6 @@
   resourceSections.forEach(section => {
     const button = section.querySelector('.care-print-section');
     if (button) button.addEventListener('click', () => requestPrint(section));
-  });
-  document.querySelectorAll('a.care-save-pdf').forEach(link => {
-    link.addEventListener('click', () => {
-      const section = link.closest('details.care-disclosure:not(.evidence)');
-      recordAction(section || null, 'pdf');
-    });
   });
   window.addEventListener('beforeprint', preparePrint);
   window.addEventListener('afterprint', restore);
