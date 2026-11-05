@@ -1,5 +1,5 @@
-const CACHE = "coping-tools-v38";
-const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/how-tools-are-chosen/","/update-history/","/privacy/"]);
+const CACHE = "coping-tools-v39";
+const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/practical-support/","/how-tools-are-chosen/","/update-history/","/privacy/"]);
 const CORE = [
   "/assets/pebble-icon-96-20261006.png",
   "/assets/pebble-icon-180-20261006.png",
@@ -16,6 +16,7 @@ const CORE = [
   "/not-sure/",
   "/about/",
   "/for-organisations/",
+  "/practical-support/",
   "/how-tools-are-chosen/",
   "/update-history/","/privacy/",
   "/assets/app-install.js?v=20261027-footer-dot",
@@ -23,6 +24,8 @@ const CORE = [
   "/assets/tool-feedback.js?v=20261028-persistent-votes",
   "/assets/guide-actions.js?v=20261027-action-counts",
   "/assets/guide-actions.css?v=20261026-source-note",
+  "/assets/care-additions.css?v=20261105-professional",
+  "/assets/care-print.js?v=20261105-professional",
   "/assets/coping-icon-192.png",
   "/assets/coping-icon-512.png",
   "/assets/coping-icon-96.png",
@@ -34,15 +37,8 @@ const CORE = [
   "/assets/fonts/atkinson-next-v7-normal-latin.woff2",
   "/assets/fonts/literata-v40-normal-latin-ext.woff2",
   "/assets/fonts/literata-v40-normal-latin.woff2",
-  "/assets/styles.css?v=20261018-stages",
-  "/assets/styles.css?v=20261024-feedback",
-  "/assets/styles.css?v=20261024-feedback-tight",
-  "/assets/styles.css?v=20261025-two-line-professional-nav",
-  "/assets/styles.css?v=20261027-home-footer-spacing",
-  "/assets/styles.css?v=20261027-disclaimer-marker",
   "/assets/styles.css?v=20261027-support-options",
   "/assets/styles.css?v=20261027-footer-gap-fix",
-  "/assets/styles.css?v=20261028-home-hero",
   "/assets/styles.css?v=20261103-header-reflow",
   "/manifest.webmanifest"
 ];
