@@ -537,6 +537,11 @@ body.home-page .home-explainer p{
 .companion-entry-arrow{grid-column:2;grid-row:1 / 4;align-self:center;color:var(--accent-dark);font-size:1.5rem}
 .companion-entry:hover{border-color:var(--accent-dark);border-inline-start-color:var(--wordmark-dot)}
 .companion-entry:hover .companion-entry-title{text-decoration-thickness:.12em}
+/* Keep supporting text above 4.5:1 on the companion entrance wash. */
+.companion-entry-label,.companion-entry-note{color:#555b55}
+@media(prefers-color-scheme:dark){
+  .companion-entry-label,.companion-entry-note{color:var(--muted)}
+}
 @media(forced-colors:active){
   .org-section .companion-entry{background:Canvas;color:LinkText;border-color:LinkText}
   .companion-entry-label,.companion-entry-note,.companion-entry-arrow{color:LinkText}
