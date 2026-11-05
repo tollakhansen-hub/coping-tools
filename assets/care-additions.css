@@ -1,0 +1,67 @@
+/* Additions only: the site-wide design comes from the actual live coping.tools stylesheet. */
+.care-preview .preview-note{font-size:.82rem;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.care-preview .jump{display:flex;flex-wrap:wrap;gap:.55rem 1.2rem;margin:1.5rem 0 1.9rem;font-size:.96rem}
+.care-preview .jump a{font-weight:650}
+.care-preview .intro-note{border-top:1px solid var(--line);padding-top:.8rem;margin-top:1.4rem}
+.care-preview .intro-note h2{font-size:1.14rem;margin:.5rem 0}
+.care-preview .care-disclosure{border-top:1px solid var(--line)}
+.care-preview .care-disclosure:last-of-type{border-bottom:1px solid var(--line)}
+.care-preview .care-disclosure summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:3.8rem;padding:.9rem 0;font-weight:730;font-size:1.08rem;color:var(--ink)}
+.care-preview .care-disclosure summary::-webkit-details-marker{display:none}
+.care-preview .care-disclosure summary::after{content:'+';font-size:1.5rem;line-height:1;color:var(--accent-dark)}
+.care-preview .care-disclosure[open] summary::after{content:'−'}
+.care-preview .care-disclosure summary:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.care-preview .care-body{padding:0 0 1.35rem}
+.care-preview .care-part{margin:1.2rem 0 0}
+.care-preview .care-part h3{font-size:1.05rem;margin:0 0 .4rem}
+.care-preview .care-part p{font-size:1rem;line-height:1.56}
+.care-preview .care-body .sources{padding-left:1.2rem}
+.care-preview .care-body .sources li{margin:.45rem 0;overflow-wrap:anywhere}
+.care-preview .print-action{margin-top:1.5rem}
+.care-preview .print-action button{font:inherit;font-weight:700;background:transparent;border:1px solid var(--accent-dark);color:var(--accent-dark);padding:.6rem 1rem;cursor:pointer}
+.care-preview .quiet{font-size:.95rem}
+.care-preview .org-section{scroll-margin-top:1rem}
+@media(max-width:520px){.care-preview .care-disclosure summary{font-size:1.02rem}}
+@media print{.care-preview header,.care-preview footer,.care-preview .back,.care-preview .print-action,.care-preview .jump{display:none!important}.care-preview .care-disclosure .care-body{display:block!important}.care-preview .care-disclosure summary::after{display:none}.care-preview .care-disclosure{break-inside:auto}.care-preview .care-part{break-inside:avoid}body{background:white!important;color:black!important}}
+
+/* Individual section printing: same visual language as the existing print button. */
+.care-preview .section-print-action{margin:1.25rem 0 .25rem}
+.care-preview .section-print-action button{font:inherit;font-weight:700;background:transparent;border:1px solid var(--accent-dark);color:var(--accent-dark);padding:.6rem 1rem;cursor:pointer;max-width:100%;text-align:left}
+.care-preview .section-print-action button:focus-visible,.care-preview .print-action button:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+@media print{
+  .care-preview .section-print-action{display:none!important}
+  .care-preview details.care-disclosure.evidence{display:none!important}
+  .care-preview[data-print-mode="single"] main .shell > :not(h1):not(details.care-disclosure){display:none!important}
+  .care-preview[data-print-mode="single"] details.care-disclosure:not([data-print-selected]){display:none!important}
+  .care-preview[data-print-mode="single"] details.care-disclosure[data-print-selected]{display:block!important}
+  .care-preview details.care-disclosure summary{display:list-item!important;list-style:none!important}
+  .care-preview details.care-disclosure .care-body{display:block!important}
+  .care-preview .care-part{break-inside:avoid-page}
+}
+
+/* Separate print and direct PDF download controls */
+.care-preview .care-save-pdf{display:inline-block;font:inherit;font-weight:700;background:transparent;border:1px solid var(--accent-dark);color:var(--accent-dark);padding:.6rem 1rem;text-decoration:none;max-width:100%;margin:.3rem .35rem .3rem 0}
+.care-preview .care-save-pdf:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.care-preview .section-print-action button,.care-preview .print-action button{margin:.3rem .35rem .3rem 0}
+@media print{.care-preview .care-save-pdf{display:none!important}}
+
+/* Print-only pagination refinements: preserve headings with their text. */
+@media print {
+  @page { size: A4; margin: 16mm; }
+  .care-preview details.care-disclosure summary,
+  .care-preview .care-part h3 { break-after: avoid-page !important; page-break-after: avoid !important; }
+  .care-preview .care-part p { orphans: 3; widows: 3; overflow-wrap: anywhere; }
+  .care-preview .care-part { break-inside: avoid-page; }
+  .care-preview main, .care-preview main .shell { max-width: 100% !important; width: auto !important; }
+}
+
+/* Print refinements: hide screen-only skip navigation and prevent orphan headings. */
+@media print {
+  .care-preview .skip-link,
+  .care-preview a[href="#main"],
+  .care-preview a[href="#content"] { display:none !important; }
+  .care-preview .care-part { break-inside:auto !important; page-break-inside:auto !important; }
+  .care-preview .care-part h3,
+  .care-preview details.care-disclosure summary { break-after:avoid-page !important; page-break-after:avoid !important; }
+  .care-preview .care-part p { orphans:3; widows:3; }
+}
