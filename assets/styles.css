@@ -522,3 +522,22 @@ body.home-page .home-explainer p{
   margin:.38rem 0 0;
 }
 .home-page .routes{margin-top:19px}
+
+/* Companion resource entrance on the healthcare page. */
+.org-section .companion-entry{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.25rem 1rem;
+  margin:1.2rem 0 .5rem;padding:1rem 1.1rem;
+  border:1px solid var(--line);border-inline-start:3px solid var(--wordmark-dot);
+  border-radius:3px;background:var(--stage-heading-wash);
+  color:var(--ink);text-decoration:none;
+}
+.companion-entry-label{grid-column:1;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.companion-entry-title{grid-column:1;font-size:1.08rem;font-weight:750;line-height:1.35;overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:.16em}
+.companion-entry-note{grid-column:1;font-size:.94rem;color:var(--muted);line-height:1.45}
+.companion-entry-arrow{grid-column:2;grid-row:1 / 4;align-self:center;color:var(--accent-dark);font-size:1.5rem}
+.companion-entry:hover{border-color:var(--accent-dark);border-inline-start-color:var(--wordmark-dot)}
+.companion-entry:hover .companion-entry-title{text-decoration-thickness:.12em}
+@media(forced-colors:active){
+  .org-section .companion-entry{background:Canvas;color:LinkText;border-color:LinkText}
+  .companion-entry-label,.companion-entry-note,.companion-entry-arrow{color:LinkText}
+}
