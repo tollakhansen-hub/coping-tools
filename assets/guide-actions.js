@@ -23,6 +23,18 @@
     if (!guide.title || !guide.urgent || !sections.length || !/^\/[a-z0-9-]+\/$/.test(guide.path)) throw new Error('Guide content missing');
     return guide;
   };
+  window.addResourceCopy?.(bar, {
+    buttonClass: 'guide-action copy-action',
+    description: 'Copy this guide',
+    getText: () => {
+      const guide = getGuide();
+      const sections = guide.sections.map(({ stage, title, blocks }) => [
+        stage, title, ...blocks.map(({ style, text }) => style === 'li' ? '• ' + text : text)
+      ].filter(Boolean).join('\n'));
+      return [guide.title, guide.intro, ...sections, guide.urgent, 'https://coping.tools' + guide.path]
+        .filter(Boolean).join('\n\n');
+    }
+  });
   const special = {'€':128,'‚':130,'ƒ':131,'„':132,'…':133,'†':134,'‡':135,'ˆ':136,'‰':137,'Š':138,'‹':139,'Œ':140,'Ž':142,'‘':145,'’':146,'“':147,'”':148,'•':149,'–':150,'—':151,'˜':152,'™':153,'š':154,'›':155,'œ':156,'ž':158,'Ÿ':159};
   const escaped = text => {
     let out = '';

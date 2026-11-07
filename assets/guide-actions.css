@@ -8,6 +8,10 @@
 .guide-action:hover{color:var(--ink);text-decoration-color:currentColor}
 .guide-action svg{display:block;width:16px;height:16px;flex:none;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .guide-action:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+/* Keep the full action row together beneath the back link on narrow screens. */
+@media(max-width:420px){.guide-actions{flex-basis:100%;margin-inline-start:0}}
+.guide-actions .copy-action span{min-width:6ch;text-align:start}
+.guide-actions .copy-status{flex-basis:100%;font-size:.9rem}
 @media(max-width:340px){.guide-actions{gap:.45rem}.guide-action{font-size:.88rem}}
 @media(forced-colors:active){.guide-action{color:LinkText;text-decoration:underline}.guide-action:hover{color:LinkText}}
 
