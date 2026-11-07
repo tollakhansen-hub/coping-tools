@@ -61,3 +61,17 @@ Keep all three visitor-facing exercises unchanged. The broader evidence supports
 6. Before future publication, check primary full texts for attrition, outcome timing, adverse-event ascertainment, and risk of bias, especially the Costa trial and the 114-student abbreviated PMR trial.
 
 **Decision:** Internal research record updated on a review branch. No public HTML, PDFs, deployment settings, or production files changed.
+
+## Additional positive studies — focused verification, 7 November 2026
+
+These studies strengthen the evidence for *related* relaxation and breathing techniques; none validates the exact short coping.tools exercises.
+
+1. **Toussaint et al. (2021)**, randomized comparison, **60 undergraduate students**, single **20-minute** audio-guided progressive muscle relaxation, deep breathing, guided imagery, or control. All three interventions increased self-reported relaxation relative to control; PMR and guided imagery showed more immediate physiological relaxation patterns, while deep breathing initially increased physiological arousal before returning toward baseline. https://doi.org/10.1155/2021/5924040. **Applicability:** useful single-session support for the two underlying methods, but much longer than the route's prompts; the physiological results are not uniform.
+2. **Balban et al. (2023)**, remote randomized trial comparing **daily five-minute** cyclic sighing, box breathing, cyclic hyperventilation with retention, and mindfulness meditation for **one month**. Cyclic sighing showed greater improvement in positive affect and reduction in respiratory rate than mindfulness meditation. Both meditation and breathwork groups improved state anxiety over time; **between-group superiority for anxiety was not established**. https://doi.org/10.1016/j.xcrm.2022.100895. **Applicability:** short self-guided daily practice, but prescribed patterns and repeated use; not the guide's comfortable unpaced breathing.
+3. **Riedl et al. (2026)**, preregistered just-in-time pilot in **47 university students** during real-life acute threat situations. One-minute box breathing or cyclic sighing was associated with greater state-anxiety reductions than passive control at five minutes. Reaction times on an attention task were **slower** in both breathing conditions, despite fewer inhibition errors after box breathing. https://doi.org/10.1080/10615806.2026.2659809. **Applicability:** closest duration and acute context, but small pilot, passive control, and distinct techniques; findings do not justify adding breath holding or forced breathing to the guide.
+
+**Evidence synthesis:** The positive studies support offering optional muscle relaxation and some breathing practices. Retain the credible-active-control null breathing trial and the contrary student relaxation result already recorded. No direct evidence was identified for this route's exact attention-to-surroundings instruction. No claim of equivalent efficacy for these shorter prompts is justified.
+
+**Suggested concise public evidence wording (proposal only):** “Controlled studies have found that muscle relaxation and some brief breathing exercises can improve relaxation or reduce anxiety. However, the studies used particular techniques and durations, and they do not establish that these shorter exercises have the same effects.”
+
+**Publication decision:** Keep this research assessment internal pending approval. Do not add techniques, change instructions, or publish on the strength of these studies alone.
