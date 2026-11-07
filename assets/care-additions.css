@@ -24,13 +24,13 @@
 @media print{.care-preview header,.care-preview footer,.care-preview .back,.care-preview .print-action,.care-preview .jump{display:none!important}.care-preview .care-disclosure .care-body{display:block!important}.care-preview .care-disclosure summary::after{display:none}.care-preview .care-disclosure{break-inside:auto}.care-preview .care-part{break-inside:avoid}body{background:white!important;color:black!important}}
 
 /* Section and full-resource actions share a compact, wrapping row. */
-.care-preview :is(.section-print-action,.print-action){display:flex;flex-wrap:wrap;align-items:center;gap:.15rem .8rem}
+.care-preview :is(.section-print-action,.print-action){display:flex;flex-wrap:wrap;align-items:center;gap:.65rem}
 .care-preview .section-print-action{margin:1.25rem 0 .25rem}
 .care-preview :is(.section-print-action,.print-action) :is(button,.care-save-pdf){appearance:none;display:inline-flex;align-items:center;gap:.35rem;min-height:44px;padding:.45rem .15rem;border:0;background:transparent;color:var(--accent-dark);font:inherit;font-size:.94rem;font-weight:650;line-height:1.25;white-space:nowrap;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:.16em}
 .care-preview :is(.section-print-action,.print-action) :is(button,.care-save-pdf):hover{color:var(--ink);text-decoration-color:currentColor}
 .care-preview :is(.section-print-action,.print-action) :is(button,.care-save-pdf):focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .care-preview .copy-action svg{width:16px;height:16px;flex:none;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.care-preview .copy-action span{min-width:6ch;text-align:start}
+.care-preview .copy-action span{min-width:0;text-align:start}
 .care-preview .copy-status{flex-basis:100%;font-size:.9rem}
 @media(forced-colors:active){.care-preview :is(.section-print-action,.print-action) :is(button,.care-save-pdf){color:LinkText;text-decoration:underline}}
 @media print{
