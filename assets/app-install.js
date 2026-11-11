@@ -16,7 +16,25 @@ if(installLink&&!isStandalone){
   installLink.addEventListener("keydown",event=>{
     if(event.key===" "){event.preventDefault();installLink.click()}
   });
-  window.addEventListener("beforeinstallprompt",event=>{event.preventDefault();deferredInstallPrompt=event;setInstallVisible(true)});
-  installLink.addEventListener("click",async event=>{event.preventDefault();if(!deferredInstallPrompt)return;trackInstallEvent("pressed");deferredInstallPrompt.prompt();const choice=await deferredInstallPrompt.userChoice;if(choice.outcome==="accepted")trackInstallEvent("accepted");deferredInstallPrompt=null;setInstallVisible(false)});
-  window.addEventListener("appinstalled",()=>{trackInstallEvent("installed");deferredInstallPrompt=null;setInstallVisible(false)});
+  if (/iPhone|iPad|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) {
+    const instructions = document.createElement("p");
+    instructions.id = "apple-install-instructions";
+    instructions.textContent = "Open this page in Safari. Tap Share, then Add to Home Screen. If Open as Web App appears, turn it on, then tap Add.";
+    instructions.hidden = true;
+    installLink.closest("p").after(instructions);
+    installLink.setAttribute("aria-controls", instructions.id);
+    installLink.setAttribute("aria-expanded", "false");
+
+    installLink.addEventListener("click", event => {
+      event.preventDefault();
+      instructions.hidden = !instructions.hidden;
+      installLink.setAttribute("aria-expanded", String(!instructions.hidden));
+    });
+    setInstallVisible(true);
+  } else {
+    window.addEventListener("beforeinstallprompt",event=>{event.preventDefault();deferredInstallPrompt=event;setInstallVisible(true)});
+    installLink.addEventListener("click",async event=>{event.preventDefault();if(!deferredInstallPrompt)return;trackInstallEvent("pressed");deferredInstallPrompt.prompt();const choice=await deferredInstallPrompt.userChoice;if(choice.outcome==="accepted")trackInstallEvent("accepted");deferredInstallPrompt=null;setInstallVisible(false)});
+    window.addEventListener("appinstalled",()=>{trackInstallEvent("installed");deferredInstallPrompt=null;setInstallVisible(false)});
+  }
 }
