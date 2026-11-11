@@ -35,16 +35,34 @@ if("serviceWorker" in navigator){
     catch(error){console.warn("Offline access could not be enabled.",error)}
   });
 }
+function manualInstallInstructions(userAgent) {
+  if (isAppleMobile) {
+    return "Open this page in Safari. Tap Share, then Add to Home Screen. If Open as Web App appears, turn it on, then tap Add.";
+  }
+  if (/Macintosh/.test(userAgent) && /Safari\//.test(userAgent) &&
+      !/Chrome\/|Chromium\/|Edg\/|OPR\//.test(userAgent) &&
+      Number(userAgent.match(/Version\/(\d+)/)?.[1]) >= 17) {
+    return "In Safari on macOS Sonoma or later, open the File menu and choose Add to Dock if available. Click Add.";
+  }
+  if (/Android/.test(userAgent) && /Firefox\//.test(userAgent)) {
+    return "In Firefox, open the three-dot menu and tap Install if available. Follow the Add to Home Screen steps.";
+  }
+  if (/Windows/.test(userAgent) && Number(userAgent.match(/Firefox\/(\d+)/)?.[1]) >= 143) {
+    return "In Firefox, click the web apps button in the address bar if it is available.";
+  }
+  return "";
+}
+
 if(installLink&&!isStandalone){
-  // The link opens a browser prompt rather than navigating; expose button semantics.
   installLink.setAttribute("role","button");
   installLink.addEventListener("keydown",event=>{
     if(event.key===" "){event.preventDefault();installLink.click()}
   });
-  if (isAppleMobile) {
+  const manualInstructions = manualInstallInstructions(navigator.userAgent);
+  if (manualInstructions) {
     const instructions = document.createElement("p");
-    instructions.id = "apple-install-instructions";
-    instructions.textContent = "Open this page in Safari. Tap Share, then Add to Home Screen. If Open as Web App appears, turn it on, then tap Add.";
+    instructions.id = "app-install-instructions";
+    instructions.textContent = manualInstructions;
     instructions.hidden = true;
     installLink.closest("p").after(instructions);
     installLink.setAttribute("aria-controls", instructions.id);
