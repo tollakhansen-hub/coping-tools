@@ -60,7 +60,8 @@
     $('owner-installs').textContent = [
       display(installs.pressed) + ' install-button presses',
       display(installs.accepted) + ' accepted prompts',
-      display(installs.installed) + ' confirmed installs'
+      display(installs.installed) + ' browser-confirmed installs',
+      display(installs.appleFirstOpen) + ' first Home Screen opens (iPhone and iPad)'
     ].join(' · ');
     signin.hidden = true;
     data.hidden = false;

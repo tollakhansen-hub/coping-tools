@@ -1,6 +1,6 @@
 import { DurableObject } from "cloudflare:workers";
 
-const INSTALL_EVENTS = new Set(["pressed", "accepted", "installed"]);
+const INSTALL_EVENTS = new Set(["pressed", "accepted", "installed", "appleFirstOpen"]);
 const MAX_EVENT_BYTES = 256;
 const FEEDBACK_PAGES = new Set(["/body-wont-settle/", "/mind-wont-stop/", "/too-much-at-once/", "/feel-low-or-shut-down/", "/something-has-happened/"]);
 const FEEDBACK_CHOICES = new Set(["yes", "no"]);
@@ -263,7 +263,7 @@ export class InstallStats extends DurableObject {
       const guideLast30Days = [...this.sql.exec(
         "SELECT day, page, action, count FROM guide_actions WHERE day >= date('now', '-29 days') ORDER BY day DESC, page, action"
       )].map(row => ({ day: row.day, page: row.page, action: row.action, count: Number(row.count) }));
-      const installs = { pressed: 0, accepted: 0, installed: 0 };
+      const installs = { pressed: 0, accepted: 0, installed: 0, appleFirstOpen: 0 };
       for (const row of this.sql.exec("SELECT event, count FROM install_stats")) {
         if (row.event in installs) installs[row.event] = Number(row.count);
       }
@@ -320,7 +320,7 @@ export class InstallStats extends DurableObject {
     }
 
     if (request.method === "GET") {
-      const stats = { pressed: 0, accepted: 0, installed: 0 };
+      const stats = { pressed: 0, accepted: 0, installed: 0, appleFirstOpen: 0 };
       for (const row of this.sql.exec("SELECT event, count FROM install_stats")) {
         if (row.event in stats) stats[row.event] = Number(row.count);
       }

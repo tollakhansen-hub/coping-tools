@@ -3,7 +3,32 @@ const installLink=document.querySelector("[data-install-app]");
 const installSeparator=document.querySelector("[data-install-separator]");
 const setInstallVisible=visible=>{if(installLink)installLink.hidden=!visible;if(installSeparator)installSeparator.hidden=!visible};
 const isStandalone=window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true;
-const trackInstallEvent=event=>{fetch("/api/install-event",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({event}),credentials:"same-origin",keepalive:true}).catch(()=>{})};
+const isAppleMobile = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const trackInstallEvent=event=>fetch("/api/install-event",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({event}),credentials:"same-origin",keepalive:true}).catch(()=>null);
+async function reportAppleFirstOpen() {
+  const key = "coping-tools-apple-first-open";
+  try {
+    if (localStorage.getItem(key) === "sent") return;
+    const response = await trackInstallEvent("appleFirstOpen");
+    if (response?.ok) localStorage.setItem(key, "sent");
+  } catch {
+    // Storage can be unavailable. Leave the app usable.
+  }
+}
+
+if (isAppleMobile && isStandalone) {
+  const report = () => {
+    if (navigator.locks) {
+      navigator.locks.request("coping-tools-apple-first-open", reportAppleFirstOpen).catch(() => {});
+    } else {
+      void reportAppleFirstOpen();
+    }
+  };
+  report();
+  window.addEventListener("online", report);
+}
+
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
     try{await navigator.serviceWorker.register("/sw.js")}
@@ -16,8 +41,7 @@ if(installLink&&!isStandalone){
   installLink.addEventListener("keydown",event=>{
     if(event.key===" "){event.preventDefault();installLink.click()}
   });
-  if (/iPhone|iPad|iPod/.test(navigator.userAgent) ||
-      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) {
+  if (isAppleMobile) {
     const instructions = document.createElement("p");
     instructions.id = "apple-install-instructions";
     instructions.textContent = "Open this page in Safari. Tap Share, then Add to Home Screen. If Open as Web App appears, turn it on, then tap Add.";
