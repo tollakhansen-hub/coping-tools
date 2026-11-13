@@ -490,6 +490,7 @@ export default {
     }
 
     const headers = new Headers(response.headers);
+    const isSpanishReview = url.pathname === "/es-review" || url.pathname.startsWith("/es-review/");
     // Apply the same CSP on previews; restrict the longer HTTPS commitment
     // to the production hostname, without includeSubDomains or preload.
     if (url.hostname === "coping.tools") {
@@ -499,6 +500,10 @@ export default {
     headers.set("X-Frame-Options", "DENY");
     headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
     headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+    if (isSpanishReview) {
+      headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+      headers.set("Cache-Control", "private, no-store");
+    }
     const isHTML = headers.get("Content-Type")?.toLowerCase().includes("text/html");
     const isOwnerDashboard = isHTML && (
       url.pathname === "/private-stats/" ||
