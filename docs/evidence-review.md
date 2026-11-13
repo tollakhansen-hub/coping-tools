@@ -1,5 +1,23 @@
 # Evidence review log
 
+## 13 November 2026 — WHO self-help guidance and targeted safety-boundary review
+
+Scope: Read-only comparison of the five coping guides with the available official descriptions of WHO's 2026 *Psychological self-help interventions* publication and its *Step-by-Step* annex, followed by a focused safety-wording review of two guides. This was **not** a full-text, page-by-page audit of either WHO document; the complete PDFs were not accessible during the review.
+
+### Guidance examined and evidence classification
+
+- [WHO — Psychological self-help interventions (2026), Step-by-Step annex/publication record](https://www.who.int/publications/i/item/B09738). Official publication description, not an independently assessed trial of coping.tools.
+- [WHO — Doing What Matters in Times of Stress](https://tdr.who.int/home/our-work/global-engagement/9789240003927). Existing guidance cited in both affected guides; principles-level context only.
+- WHO's structured self-help programmes, including supported delivery, cannot be assumed to validate the effects or safety of a standalone brief exercise. No new direct evidence for either guide's exact prompts was identified in this focused comparison.
+
+### Decisions and limits
+
+- **My body won’t settle:** added an early caution about new, severe or unusual physical symptoms and seeking emergency help when appropriate. This is precautionary safety wording, not a newly validated intervention.
+- **My mind won’t stop:** clarified that thoughts making everyday life difficult can warrant talking to a health professional, while retaining the existing emergency escalation message.
+- The other three guides, exercises, expanded research summaries and public source lists remain unchanged. Existing WHO *Doing What Matters* references remain appropriate; the 2026 publication is recorded here for traceability, not added as evidence that the short exercises work.
+- The affected guides' visible “Last reviewed” date was updated to 13 November 2026 to record this **focused safety wording review only**. It does not imply a complete evidence re-review, clinician endorsement, WHO certification or full safety audit.
+- Follow-up remains: full-document comparison of WHO's 2026 manual and annex when accessible, independent professional review, and browser/print/offline accessibility verification.
+
 Internal review record for coping.tools. This file is excluded from deployed static assets.
 
 ## 7 November 2026 — There’s too much at once: competing demands and self-guided coping
