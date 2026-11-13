@@ -1,0 +1,16 @@
+{
+  "id": "/es-review/",
+  "name": "Herramientas de afrontamiento | Vista de revisión",
+  "short_name": "coping.tools ES revisión",
+  "description": "Vista de revisión en español de coping.tools.",
+  "lang": "es",
+  "start_url": "/es-review/",
+  "scope": "/es-review/",
+  "display": "standalone",
+  "background_color": "#f7f4ed",
+  "theme_color": "#f7f4ed",
+  "icons": [
+    { "src": "/es-review/assets/pebble-icon-192-20261006.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/es-review/assets/pebble-icon-512-20261006.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
