@@ -568,3 +568,16 @@ body.home-page .home-explainer p{
 .share-embed h3{font-size:1.07rem}
 @media(max-width:390px){.share-row{gap:.5rem;padding:.75rem}.share-copy-button{padding:.4rem .55rem}.share-panel-heading{padding:1rem .75rem}}
 @media(forced-colors:active){.share-panel{border-color:CanvasText}.share-panel-heading{background:Canvas}.share-copy-button{border-color:ButtonText;color:ButtonText}}
+
+.share-row-item{list-style:none;border-top:1px solid var(--line)}
+.share-row-item .share-row{border-top:0}
+.share-row-copy{flex:1}
+.share-qr-button{font:inherit;font-size:.85rem;font-weight:650;min-height:44px;padding:.45rem .75rem;border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--ink);cursor:pointer;white-space:nowrap}
+.share-qr-button:hover{background:var(--stage-heading-wash)}
+.share-qr-button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.share-qr-detail{padding:0 1.15rem 1.15rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+.share-qr-detail[hidden]{display:none!important}
+.share-qr-detail img{width:190px;height:190px;background:#fff;padding:10px;border:1px solid var(--line);image-rendering:pixelated}
+.share-qr-actions{display:flex;flex-direction:column;gap:.65rem}
+.share-qr-actions a{font-size:.9rem;text-underline-offset:.2em}
+@media(max-width:420px){.share-row-item .share-row{flex-wrap:wrap}.share-row-copy{flex-basis:100%}.share-qr-detail{padding:0 .75rem 1rem}}
