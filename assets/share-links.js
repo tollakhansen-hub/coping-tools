@@ -22,4 +22,29 @@
       button.setAttribute('aria-expanded',String(willOpen));
     });
   });
+  document.querySelectorAll('.share-download-png').forEach(button=>{
+    button.addEventListener('click',async()=>{
+      const slug=button.dataset.qrSlug;
+      try{
+        const response=await fetch('/assets/qr/'+slug+'.svg');
+        if(!response.ok)throw new Error('QR file unavailable');
+        const svg=await response.text();
+        const blob=new Blob([svg],{type:'image/svg+xml'});
+        const objectUrl=URL.createObjectURL(blob);
+        try{
+          const image=new Image();
+          await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=reject;image.src=objectUrl});
+          const canvas=document.createElement('canvas');canvas.width=800;canvas.height=800;
+          const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Canvas unavailable');
+          ctx.imageSmoothingEnabled=false;ctx.fillStyle='#fff';ctx.fillRect(0,0,800,800);
+          ctx.drawImage(image,0,0,800,800);
+          const png=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('PNG unavailable')),'image/png'));
+          const pngUrl=URL.createObjectURL(png);
+          const a=document.createElement('a');a.href=pngUrl;a.download=slug+'-coping-tools.png';document.body.appendChild(a);a.click();a.remove();
+          setTimeout(()=>URL.revokeObjectURL(pngUrl),1000);
+          status.textContent='PNG download prepared.';
+        }finally{URL.revokeObjectURL(objectUrl)}
+      }catch(e){status.textContent='PNG download is unavailable on this browser. Use Download SVG instead.'}
+    });
+  });
 })();
