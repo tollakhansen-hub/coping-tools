@@ -549,3 +549,22 @@ body.home-page .home-explainer p{
   .org-section .companion-entry{background:Canvas;color:LinkText;border-color:LinkText}
   .companion-entry-label,.companion-entry-note,.companion-entry-arrow{color:LinkText}
 }
+
+/* Sharing panel: restrained, mobile-first and consistent with the site palette. */
+.share-panel{margin:1.4rem 0 1.6rem;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.share-panel-heading{padding:1.1rem 1.15rem .9rem;background:var(--stage-heading-wash)}
+.share-panel-heading h3{margin:0 0 .3rem;font-size:1.06rem}
+.share-panel-heading p{margin:0;font-size:.94rem;line-height:1.5}
+.share-list{list-style:none;margin:0;padding:0}
+.share-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 1.15rem;border-top:1px solid var(--line)}
+.share-row-copy{display:flex;flex-direction:column;min-width:0;gap:.2rem}
+.share-row-copy strong{font-size:.97rem;line-height:1.35}
+.share-path{color:var(--muted);font-size:.82rem;overflow-wrap:anywhere}
+.share-copy-button{font:inherit;font-size:.85rem;font-weight:650;flex-shrink:0;min-height:44px;padding:.45rem .75rem;border:1px solid var(--accent-dark);border-radius:3px;background:transparent;color:var(--ink);cursor:pointer}
+.share-copy-button:hover{background:var(--stage-heading-wash)}
+.share-copy-button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.share-feedback{min-height:1.3em;margin:.3rem 1.15rem .8rem;font-size:.88rem;color:var(--accent-dark)}
+.share-embed{padding-top:.25rem}
+.share-embed h3{font-size:1.07rem}
+@media(max-width:390px){.share-row{gap:.5rem;padding:.75rem}.share-copy-button{padding:.4rem .55rem}.share-panel-heading{padding:1rem .75rem}}
+@media(forced-colors:active){.share-panel{border-color:CanvasText}.share-panel-heading{background:Canvas}.share-copy-button{border-color:ButtonText;color:ButtonText}}
