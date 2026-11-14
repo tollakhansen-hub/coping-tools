@@ -8,3 +8,7 @@ tools
 docs
 research
 evidence-records
+node_modules
+.wrangler
+package.json
+package-lock.json
