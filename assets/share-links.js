@@ -22,5 +22,4 @@
       button.setAttribute('aria-expanded',String(willOpen));
     });
   });
-;
 })();
