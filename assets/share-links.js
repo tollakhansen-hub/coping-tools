@@ -26,7 +26,7 @@
     button.addEventListener('click',async()=>{
       const slug=button.dataset.qrSlug;
       try{
-        const response=await fetch('/assets/qr/'+slug+'.svg');
+        const response=await fetch('/assets/qr/print/'+slug+'.svg');
         if(!response.ok)throw new Error('QR file unavailable');
         const svg=await response.text();
         const blob=new Blob([svg],{type:'image/svg+xml'});
@@ -34,7 +34,7 @@
         try{
           const image=new Image();
           await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=reject;image.src=objectUrl});
-          const canvas=document.createElement('canvas');canvas.width=800;canvas.height=800;
+          const canvas=document.createElement('canvas');canvas.width=1200;canvas.height=1434;
           const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Canvas unavailable');
           ctx.imageSmoothingEnabled=false;ctx.fillStyle='#fff';ctx.fillRect(0,0,800,800);
           ctx.drawImage(image,0,0,800,800);
