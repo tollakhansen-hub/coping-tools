@@ -584,3 +584,14 @@ body.home-page .home-explainer p{
 
 .share-download-png{font:inherit;font-size:.9rem;color:var(--accent-dark);border:0;background:transparent;text-decoration:underline;text-underline-offset:.2em;cursor:pointer;text-align:left;padding:.35rem 0;min-height:44px}
 .share-download-png:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* Exercise-spacing prototype: distinguish options without separating their steps.
+   Screen-only so printing and saved PDFs retain their existing spacing. */
+@media screen {
+  .tool-page .tool-section + .tool-section {
+    margin-top: 1rem;
+  }
+  .tool-page .tool-section > h3.exercise-start {
+    margin-top: 2rem;
+  }
+}
