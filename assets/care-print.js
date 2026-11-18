@@ -12,19 +12,31 @@
   ].join('\n\n');
 
   const source = 'https://coping.tools/practical-support/';
+  const resource = target => '/practical-support/#' + target.dataset.statsResource;
+  const trackPdf = (row, target) => {
+    const link = row.querySelector('.care-save-pdf');
+    link?.addEventListener('click', () => window.recordResourceAction?.(resource(target), 'pdf'));
+    link?.addEventListener('auxclick', event => {
+      if (event.button === 1) window.recordResourceAction?.(resource(target), 'pdf');
+    });
+  };
   if (allButton) {
+    trackPdf(allButton.parentElement, allButton);
     window.addResourceCopy?.(allButton.parentElement, {
       buttonClass: 'copy-action',
       description: 'Copy all five sections',
+      resource: resource(allButton),
       getText: () => [document.querySelector('h1').textContent.trim(), ...resourceSections.map(formatSection), source].join('\n\n')
     });
   }
   resourceSections.forEach(section => {
     const row = section.querySelector('.section-print-action');
     if (!row) return;
+    trackPdf(row, section);
     window.addResourceCopy?.(row, {
       buttonClass: 'copy-action',
       description: 'Copy this section',
+      resource: resource(section),
       getText: () => [formatSection(section), source].join('\n\n')
     });
   });
@@ -60,6 +72,7 @@
     restore();
     chosenSection = section;
     preparePrint();
+    window.recordResourceAction?.(resource(section ?? allButton), 'print');
     window.print();
   }
 

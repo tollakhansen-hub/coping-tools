@@ -9,14 +9,14 @@
 <meta name="theme-color" content="#f7f4ed">
 <link rel="icon" href="/assets/pebble-icon-96-20261006.png">
 <link rel="stylesheet" href="/assets/styles.css?v=20261027-support-options">
-<link rel="stylesheet" href="/assets/owner-stats.css?v=20261027-v1">
-<script src="/assets/owner-stats.js?v=20261118-first-open" defer></script>
+<link rel="stylesheet" href="/assets/owner-stats.css?v=20261118-resource-stats">
+<script src="/assets/owner-stats.js?v=20261118-resource-stats" defer></script>
 </head>
 <body class="owner-stats-page">
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-head"><div class="shell"><a class="wordmark" href="/" aria-label="coping.tools home">coping<span class="wordmark-dot" aria-hidden="true">.</span>tools</a></div></header>
 <main id="main"><div class="shell owner-container">
-<div class="owner-heading"><div><h1>Private statistics</h1><p class="owner-subtitle">Useful votes, guide actions and app installs — in one place.</p></div><button id="owner-logout" type="button" class="owner-secondary" hidden>Sign out</button></div>
+<div class="owner-heading"><div><h1>Private statistics</h1><p class="owner-subtitle">Resource actions, usefulness votes and app installs.</p></div><button id="owner-logout" type="button" class="owner-secondary" hidden>Sign out</button></div>
 <p id="owner-status" role="status" aria-live="polite">Checking access…</p>
 <section id="owner-signin" class="owner-signin" aria-labelledby="signin-title" hidden>
 <h2 id="signin-title">Owner sign in</h2>
@@ -29,26 +29,38 @@
 <p class="owner-help">The token is not saved in this page or URL. A secure, browser-only sign-in cookie is used.</p>
 </section>
 <div id="owner-data" hidden>
-<section aria-labelledby="overview-title"><h2 id="overview-title">All-time totals</h2>
+<div class="owner-controls owner-period">
+<label for="owner-period">Reporting period</label>
+<select id="owner-period"><option value="recent" selected>Last 180 days</option><option value="all">All time</option></select>
+</div>
+<section aria-labelledby="overview-title"><h2 id="overview-title">Resource action totals</h2>
 <div class="owner-summary">
+<div><span>Text copies</span><strong id="count-copy">0</strong></div>
 <div><span>Print requests</span><strong id="count-print">0</strong></div>
-<div><span>PDF saves</span><strong id="count-pdf">0</strong></div>
-<div><span>Useful — Yes</span><strong id="count-yes">0</strong></div>
-<div><span>Useful — No</span><strong id="count-no">0</strong></div>
-</div></section>
-<section aria-labelledby="guide-title"><h2 id="guide-title">Printing and PDFs</h2>
-<div class="owner-table-scroll"><table><thead><tr><th scope="col">Coping route</th><th scope="col" class="number">Print</th><th scope="col" class="number">Save PDF</th></tr></thead><tbody id="owner-guides"></tbody></table></div>
-<p class="owner-note">These count button presses, not completed print jobs. A PDF save counts when its download is initiated.</p>
+<div><span>PDF save requests</span><strong id="count-pdf">0</strong></div>
+</div>
+<p class="owner-note">Recorded online actions. Copy counts when the clipboard write succeeds. Print and Save PDF count when the action starts.</p>
+<p id="owner-resource-coverage" class="owner-note"></p>
+</section>
+<section aria-labelledby="guide-title"><h2 id="guide-title">Coping guides</h2>
+<div class="owner-table-scroll"><table aria-labelledby="guide-title"><thead><tr><th scope="col">Guide</th><th scope="col" class="number">Copy</th><th scope="col" class="number">Print</th><th scope="col" class="number">Save PDF</th></tr></thead><tbody id="owner-guides"></tbody></table></div>
+</section>
+<section aria-labelledby="care-title"><h2 id="care-title">Practical Support</h2>
+<div class="owner-table-scroll"><table aria-labelledby="care-title"><thead><tr><th scope="col">Section</th><th scope="col" class="number">Copy</th><th scope="col" class="number">Print</th><th scope="col" class="number">Save PDF</th></tr></thead><tbody id="owner-care"></tbody></table></div>
+</section>
+<section aria-labelledby="share-title"><h2 id="share-title">Share and embed</h2>
+<div class="owner-table-scroll"><table aria-labelledby="share-title"><thead><tr><th scope="col">Resource</th><th scope="col" class="number">Copy link</th><th scope="col" class="number">QR PNG</th><th scope="col" class="number">QR SVG</th></tr></thead><tbody id="owner-share"></tbody></table></div>
+<div class="owner-table-scroll"><table aria-label="Embed snippets"><thead><tr><th scope="col">Embed snippet</th><th scope="col" class="number">Copy HTML</th></tr></thead><tbody id="owner-embed"></tbody></table></div>
+<p class="owner-note">QR download requests are counted when a download link is used. Copy counts successful clipboard writes.</p>
 </section>
 <section aria-labelledby="feedback-title"><h2 id="feedback-title">Was this page useful?</h2>
-<div class="owner-table-scroll"><table><thead><tr><th scope="col">Coping route</th><th scope="col" class="number">Yes</th><th scope="col" class="number">No</th></tr></thead><tbody id="owner-feedback"></tbody></table></div>
-<p class="owner-note">Votes reflect visitors who chose to respond, not proven clinical effectiveness.</p>
+<div class="owner-table-scroll"><table aria-labelledby="feedback-title"><thead><tr><th scope="col">Guide</th><th scope="col" class="number">Yes</th><th scope="col" class="number">No</th></tr></thead><tbody id="owner-feedback"></tbody><tfoot><tr><th scope="row">Total</th><td id="count-yes" class="number">0</td><td id="count-no" class="number">0</td></tr></tfoot></table></div>
+<p class="owner-note">These figures reflect the visitors who chose to vote.</p>
 </section>
-<section aria-labelledby="recent-title"><h2 id="recent-title">Last 30 days</h2><p id="owner-recent">Loading…</p></section>
-<section aria-labelledby="install-title"><h2 id="install-title">App-install actions</h2><p id="owner-installs">Loading…</p><p class="owner-note">First opens count when the browser can detect the installed app window. Earlier first-open counts cover iPhone and iPad only. Prompt and confirmation counts depend on browser support and can overlap with first opens.</p></section>
+<section aria-labelledby="install-title"><h2 id="install-title">App-install actions</h2><p id="owner-installs">Loading…</p><p id="owner-install-coverage" class="owner-note"></p><p class="owner-note">First opens count when the browser can detect the installed app window. Earlier first-open counts cover iPhone and iPad only. Prompt and confirmation counts depend on browser support and can overlap with first opens.</p></section>
 <div class="owner-controls"><button id="owner-refresh" type="button">Refresh figures</button><span id="owner-refreshed" class="owner-note"></span></div>
 </div>
-<p class="owner-footer-note">Counts are aggregated by route and UTC day. This page is not linked from the public site.</p>
+<p class="owner-footer-note">The last 180 days include today, using UTC dates.</p>
 </div></main>
 </body>
 </html>
