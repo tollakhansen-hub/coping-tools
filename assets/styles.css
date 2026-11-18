@@ -595,3 +595,10 @@ body.home-page .home-explainer p{
     margin-top: 2rem;
   }
 }
+
+/* 17 November 2026: quicker access to guide titles; exercise and print spacing unchanged. */
+@media screen {
+  .tool-page main { padding-top: 20px; }
+  .tool-page .guide-nav-row { margin-bottom: 16px; }
+  .tool-page .optional-plan strong { font-size: .94em; }
+}
