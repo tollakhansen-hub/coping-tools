@@ -1,4 +1,4 @@
-const CACHE = "coping-tools-v49";
+const CACHE = "coping-tools-v50";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/practical-support/","/how-tools-are-chosen/","/update-history/","/privacy/"]);
 const CORE = [
   "/assets/styles.css?v=20261117-consistency",
@@ -100,7 +100,7 @@ self.addEventListener("activate", event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
     await Promise.all(keys
-      .filter(key => key.startsWith("coping-tools-") && key !== CACHE)
+      .filter(key => /^coping-tools-v\d+$/.test(key) && key !== CACHE)
       .map(key => caches.delete(key)));
     await self.clients.claim();
   })());
