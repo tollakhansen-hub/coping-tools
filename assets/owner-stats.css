@@ -29,6 +29,10 @@
 .owner-note,.owner-help,.owner-footer-note{font-size:.85rem;color:var(--muted);line-height:1.5}
 .owner-controls{display:flex;align-items:center;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
 .owner-footer-note{margin-top:2rem}
-@media (min-width:620px){.owner-summary{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.owner-period{margin-top:0}
+.owner-period label{font-weight:650}
+.owner-period select{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--accent);border-radius:3px;min-height:2.65rem;padding:.45rem .65rem}
+.owner-table-scroll + .owner-table-scroll{margin-top:1rem}
+@media (min-width:620px){.owner-summary{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:360px){.owner-stats-page table{font-size:.86rem}.owner-stats-page th,.owner-stats-page td{padding:.65rem .17rem}.owner-heading{flex-wrap:wrap}}
 @media (prefers-reduced-motion:reduce){.owner-stats-page *{scroll-behavior:auto}}

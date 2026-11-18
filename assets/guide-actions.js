@@ -4,6 +4,7 @@
   const bar = document.querySelector('[data-guide-actions]');
   const main = document.querySelector('.tool-page main');
   if (!bar || !main) return;
+  const resource = window.location.pathname;
   const getText = element => {
     if (!element) return '';
     const copy = element.cloneNode(true);
@@ -26,6 +27,7 @@
   window.addResourceCopy?.(bar, {
     buttonClass: 'guide-action copy-action',
     description: 'Copy this guide',
+    resource,
     getText: () => {
       const guide = getGuide();
       const sections = guide.sections.map(({ stage, title, blocks }) => [
@@ -132,33 +134,15 @@
     return new Blob([Uint8Array.from(bytes)],{type:'application/pdf'});
   }
 
-  const recordAction = action => {
-    // Best effort and never blocks printing or saving. No identifiers are sent.
-    try {
-      const payload = JSON.stringify({ page: window.location.pathname, action });
-      const blob = new Blob([payload], { type: 'application/json' });
-      if (navigator.sendBeacon && navigator.sendBeacon('/api/guide-event', blob)) return;
-      if (window.fetch) {
-        fetch('/api/guide-event', {
-          method: 'POST',
-          credentials: 'same-origin',
-          cache: 'no-store',
-          headers: { 'Content-Type': 'application/json' },
-          body: payload,
-          keepalive: true
-        }).catch(() => {});
-      }
-    } catch { /* Counters are optional, printing must still work. */ }
-  };
   const print=bar.querySelector('[data-guide-print]');
   const save=bar.querySelector('[data-guide-save]');
-  if(print)print.addEventListener('click',()=>{ recordAction('print'); window.print(); });
+  if(print)print.addEventListener('click',()=>{ window.recordResourceAction?.(resource, 'print'); window.print(); });
   if(save && typeof Blob!=='undefined' && URL.createObjectURL){
     save.addEventListener('click',()=>{
       try{
         const guide=getGuide(),url=URL.createObjectURL(buildPdf(guide)),a=document.createElement('a');
         a.href=url;a.download='coping-tools-'+guide.path.slice(1,-1)+'.pdf';
-        document.body.appendChild(a);a.click();recordAction('pdf');a.remove();
+        document.body.appendChild(a);a.click();window.recordResourceAction?.(resource, 'pdf');a.remove();
         window.setTimeout(()=>URL.revokeObjectURL(url),10000);
       }catch(error){console.error('Guide PDF unavailable.',error);window.alert('The PDF could not be saved. Try Print and choose Save as PDF.');}
     });

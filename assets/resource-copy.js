@@ -1,5 +1,5 @@
 /* Copy the public resource text directly to the visitor's clipboard. */
-window.addResourceCopy = (row, { buttonClass, description, getText }) => {
+window.addResourceCopy = (row, { buttonClass, description, getText, resource }) => {
   const copyIcon = 'M8 8h12v12H8zM16 4H4v12';
   const button = document.createElement('button');
   button.type = 'button';
@@ -27,6 +27,7 @@ window.addResourceCopy = (row, { buttonClass, description, getText }) => {
       label.textContent = 'Copied';
       icon.setAttribute('d', 'm5 12 4 4L19 6');
       status.textContent = 'Copied to clipboard.';
+      if (resource) window.recordResourceAction?.(resource, 'copy');
       reset = setTimeout(() => {
         label.textContent = 'Copy';
         icon.setAttribute('d', copyIcon);

@@ -327,3 +327,63 @@ test('print, PDF and usefulness totals are aggregated by route without user deta
   assert.equal(legacy.status, 200);
   assert.equal((await legacy.json()).byPage[page].yes, totals.feedback.byPage[page].yes);
 });
+
+test('resource and sharing actions feed all-time and 180-day aggregate totals', async () => {
+  const cookie = await signedCookie();
+  const baseline = await ownerTotals(cookie);
+  const targets = [
+    ['/body-wont-settle/', 'copy'],
+    ['/practical-support/#section-1', 'copy'],
+    ['/practical-support/#section-2', 'print'],
+    ['/practical-support/#section-5', 'pdf'],
+    ['/practical-support/#all', 'pdf'],
+    ['/share/#all-five-guides', 'copyLink'],
+    ['/share/#body-wont-settle', 'qrPng'],
+    ['/share/#body-wont-settle', 'qrSvg'],
+    ['/share/#embed-selector', 'copyEmbed']
+  ];
+  for (const [page, action] of targets) {
+    assert.equal((await postJson('/api/guide-event', { page, action })).status, 204);
+  }
+  for (const [page, action] of [
+    ['/practical-support/#section-6', 'pdf'],
+    ['/practical-support/#section-1', 'copyEmbed'],
+    ['/share/#embed-selector', 'qrPng'],
+    ['/share/#all-five-guides', 'pdf'],
+    ['/share/#all-five-guides?visitor=123', 'copyLink'],
+    ['/body-wont-settle/', 'copyLink']
+  ]) {
+    assert.equal((await postJson('/api/guide-event', { page, action })).status, 400);
+  }
+  assert.equal((await postJson('/api/guide-event', {
+    page: '/practical-support/#section-1', action: 'copy', clipboard: 'extra data'
+  })).status, 400);
+  assert.equal((await post(JSON.stringify({ event: 'firstOpen' }))).status, 204);
+
+  const totals = await ownerTotals(cookie);
+  for (const [page, action] of targets) {
+    for (const period of ['byResource', 'last180Days']) {
+      assert.equal(totals.actions[period][page][action], (baseline.actions[period][page]?.[action] || 0) + 1);
+    }
+  }
+  assert.deepEqual(totals.guides, baseline.guides);
+  assert.deepEqual(totals.feedback, baseline.feedback);
+  assert.equal(totals.installs.firstOpen, baseline.installs.firstOpen + 1);
+  assert.equal(totals.installsLast180Days.firstOpen, baseline.installsLast180Days.firstOpen + 1);
+  assert.match(totals.coverage.resources, /^\d{4}-\d{2}-\d{2}$/);
+  assert.match(totals.coverage.installs, /^\d{4}-\d{2}-\d{2}$/);
+});
+
+test('Practical Support PDF links and action script are available to the service worker', async () => {
+  const page = await (await fetchSite('/practical-support/')).text();
+  const sw = await (await fetchSite('/sw.js')).text();
+  const paths = [
+    ...[...page.matchAll(/href="(\/pdf\/practical-support-[^"]+\.pdf)"/g)].map(match => match[1]),
+    page.match(/src="(\/assets\/resource-stats\.js\?[^"]+)"/)[1]
+  ];
+  assert.equal(paths.length, 7);
+  for (const asset of paths) {
+    assert.ok(sw.includes(JSON.stringify(asset)), asset);
+    assert.equal((await fetchSite(asset)).status, 200, asset);
+  }
+});

@@ -1,4 +1,4 @@
-const CACHE = "coping-tools-v48";
+const CACHE = "coping-tools-v49";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/practical-support/","/how-tools-are-chosen/","/update-history/","/privacy/"]);
 const CORE = [
   "/assets/styles.css?v=20261117-consistency",
@@ -23,12 +23,13 @@ const CORE = [
   "/assets/app-install.js?v=20261118-first-open",
   "/assets/evidence-expand.js",
   "/assets/tool-feedback.js?v=20261028-persistent-votes",
-  "/assets/resource-copy.js?v=20261107-copy-text",
-  "/assets/guide-actions.js?v=20261107-copy-text",
+  "/assets/resource-stats.js?v=20261118-resource-stats",
+  "/assets/resource-copy.js?v=20261118-resource-stats",
+  "/assets/guide-actions.js?v=20261118-resource-stats",
   "/assets/guide-actions.css?v=20261107-copy-text",
   "/assets/care-additions.css?v=20261107-copy-text",
   "/assets/care-additions.css?v=20261107-action-icons",
-  "/assets/care-print.js?v=20261107-copy-text",
+  "/assets/care-print.js?v=20261118-resource-stats",
   "/assets/coping-icon-192.png",
   "/assets/coping-icon-512.png",
   "/assets/coping-icon-96.png",
@@ -44,6 +45,12 @@ const CORE = [
   "/assets/styles.css?v=20261027-footer-gap-fix",
   "/assets/styles.css?v=20261103-header-reflow",
   "/assets/styles.css?v=20261111-desktop-heading",
+  "/pdf/practical-support-all-five.pdf",
+  "/pdf/practical-support-section-1.pdf",
+  "/pdf/practical-support-section-2.pdf",
+  "/pdf/practical-support-section-3.pdf",
+  "/pdf/practical-support-section-4.pdf",
+  "/pdf/practical-support-section-5.pdf",
   "/manifest.webmanifest"
 ];
 const ALLOWED = new Set(CORE);

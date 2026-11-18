@@ -4,7 +4,22 @@ const INSTALL_EVENTS = new Set(["pressed", "accepted", "installed", "appleFirstO
 const MAX_EVENT_BYTES = 256;
 const FEEDBACK_PAGES = new Set(["/body-wont-settle/", "/mind-wont-stop/", "/too-much-at-once/", "/feel-low-or-shut-down/", "/something-has-happened/"]);
 const FEEDBACK_CHOICES = new Set(["yes", "no"]);
-const GUIDE_ACTIONS = new Set(["print", "pdf"]);
+const RESOURCE_ACTIONS = ["copy", "print", "pdf"];
+const SHARE_ACTIONS = ["copyLink", "qrPng", "qrSvg"];
+const RESOURCE_TARGETS = new Map([
+  ...[...FEEDBACK_PAGES].map(page => [page, RESOURCE_ACTIONS]),
+  ...["all", "section-1", "section-2", "section-3", "section-4", "section-5"].map(
+    section => ["/practical-support/#" + section, RESOURCE_ACTIONS]
+  ),
+  ...["all-five-guides", ...[...FEEDBACK_PAGES].map(page => page.slice(1, -1))].map(
+    guide => ["/share/#" + guide, SHARE_ACTIONS]
+  ),
+  ...["embed-widget", "embed-button", "embed-selector"].map(kind => ["/share/#" + kind, ["copyEmbed"]])
+]);
+const RECENT_STATS_START = "date('now', '-179 days')";
+const validResourceAction = payload =>
+  payload && !Array.isArray(payload) && Object.keys(payload).length === 2 &&
+  RESOURCE_TARGETS.get(payload.page)?.includes(payload.action);
 const OWNER_COOKIE = "__Secure-coping-owner";
 const OWNER_SESSION_SECONDS = 30 * 24 * 60 * 60;
 
@@ -205,6 +220,14 @@ export class InstallStats extends DurableObject {
       )
     `);
     this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS daily_install_stats (
+        day TEXT NOT NULL,
+        event TEXT NOT NULL,
+        count INTEGER NOT NULL DEFAULT 0,
+        PRIMARY KEY (day, event)
+      )
+    `);
+    this.sql.exec(`
       CREATE TABLE IF NOT EXISTS tool_feedback (
         day TEXT NOT NULL,
         page TEXT NOT NULL,
@@ -238,8 +261,7 @@ export class InstallStats extends DurableObject {
       if (request.method !== "POST") return apiResponse("Method not allowed", 405, { Allow: "POST" });
       const { payload, error } = await readBoundedJson(request, MAX_EVENT_BYTES);
       if (error) return error;
-      if (!payload || Array.isArray(payload) || Object.keys(payload).length !== 2 ||
-          !FEEDBACK_PAGES.has(payload.page) || !GUIDE_ACTIONS.has(payload.action)) {
+      if (!validResourceAction(payload)) {
         return apiResponse("Invalid action", 400);
       }
       const day = new Date().toISOString().slice(0, 10);
@@ -255,13 +277,28 @@ export class InstallStats extends DurableObject {
       if (request.method !== "GET") return apiResponse("Method not allowed", 405, { Allow: "GET" });
       const feedbackByPage = Object.fromEntries([...FEEDBACK_PAGES].map(page => [page, { yes: 0, no: 0 }]));
       const guideByPage = Object.fromEntries([...FEEDBACK_PAGES].map(page => [page, { print: 0, pdf: 0 }]));
-      for (const row of this.sql.exec("SELECT page, answer, SUM(count) AS count FROM tool_feedback GROUP BY page, answer")) {
-        if (feedbackByPage[row.page] && row.answer in feedbackByPage[row.page]) {
+      const actionsByResource = {};
+      const actionsLast180Days = {};
+      const feedbackLast180Days = {};
+      for (const row of this.sql.exec(`
+        SELECT page, answer, SUM(count) AS count,
+          SUM(CASE WHEN day >= ${RECENT_STATS_START} THEN count ELSE 0 END) AS recent
+        FROM tool_feedback GROUP BY page, answer
+      `)) {
+        if (FEEDBACK_PAGES.has(row.page) && FEEDBACK_CHOICES.has(row.answer)) {
           feedbackByPage[row.page][row.answer] = Number(row.count);
+          (feedbackLast180Days[row.page] ??= {})[row.answer] = Number(row.recent);
         }
       }
-      for (const row of this.sql.exec("SELECT page, action, SUM(count) AS count FROM guide_actions GROUP BY page, action")) {
-        if (guideByPage[row.page] && row.action in guideByPage[row.page]) {
+      for (const row of this.sql.exec(`
+        SELECT page, action, SUM(count) AS count,
+          SUM(CASE WHEN day >= ${RECENT_STATS_START} THEN count ELSE 0 END) AS recent
+        FROM guide_actions GROUP BY page, action
+      `)) {
+        if (!RESOURCE_TARGETS.get(row.page)?.includes(row.action)) continue;
+        (actionsByResource[row.page] ??= {})[row.action] = Number(row.count);
+        (actionsLast180Days[row.page] ??= {})[row.action] = Number(row.recent);
+        if (guideByPage[row.page] && Object.hasOwn(guideByPage[row.page], row.action)) {
           guideByPage[row.page][row.action] = Number(row.count);
         }
       }
@@ -270,11 +307,25 @@ export class InstallStats extends DurableObject {
       )].map(row => ({ day: row.day, page: row.page, answer: row.answer, count: Number(row.count) }));
       const guideLast30Days = [...this.sql.exec(
         "SELECT day, page, action, count FROM guide_actions WHERE day >= date('now', '-29 days') ORDER BY day DESC, page, action"
-      )].map(row => ({ day: row.day, page: row.page, action: row.action, count: Number(row.count) }));
+      )].filter(row => FEEDBACK_PAGES.has(row.page) && (row.action === "print" || row.action === "pdf"))
+        .map(row => ({ day: row.day, page: row.page, action: row.action, count: Number(row.count) }));
+      const installsLast180Days = {};
+      for (const row of this.sql.exec(`SELECT event, SUM(count) AS count FROM daily_install_stats
+        WHERE day >= ${RECENT_STATS_START} GROUP BY event`)) {
+        if (INSTALL_EVENTS.has(row.event)) installsLast180Days[row.event] = Number(row.count);
+      }
+      const [coverage] = this.sql.exec(`
+        SELECT
+          (SELECT MIN(day) FROM guide_actions WHERE action NOT IN ('print', 'pdf') OR page LIKE '/practical-support/#%') AS resources,
+          (SELECT MIN(day) FROM daily_install_stats) AS installs
+      `);
       return Response.json({
-        feedback: { byPage: feedbackByPage, last30Days: feedbackLast30Days },
+        feedback: { byPage: feedbackByPage, last30Days: feedbackLast30Days, last180Days: feedbackLast180Days },
         guides: { byPage: guideByPage, last30Days: guideLast30Days },
-        installs: this.readInstallTotals()
+        actions: { byResource: actionsByResource, last180Days: actionsLast180Days },
+        installs: this.readInstallTotals(),
+        installsLast180Days,
+        coverage
       }, { headers: { "Cache-Control": "no-store" } });
     }
 
@@ -314,12 +365,20 @@ export class InstallStats extends DurableObject {
       const { event, error } = await readInstallEvent(request);
       if (error) return error;
 
-      this.sql.exec(
-        `INSERT INTO install_stats (event, count)
-         VALUES (?, 1)
-         ON CONFLICT(event) DO UPDATE SET count = count + 1`,
-        event
-      );
+      this.ctx.storage.transactionSync(() => {
+        this.sql.exec(
+          `INSERT INTO install_stats (event, count)
+           VALUES (?, 1)
+           ON CONFLICT(event) DO UPDATE SET count = count + 1`,
+          event
+        );
+        this.sql.exec(
+          `INSERT INTO daily_install_stats (day, event, count)
+           VALUES (date('now'), ?, 1)
+           ON CONFLICT(day, event) DO UPDATE SET count = count + 1`,
+          event
+        );
+      });
       return apiResponse(null, 204);
     }
 
@@ -360,8 +419,7 @@ async function handleRequest(request, env) {
       if (request.headers.get("Origin") !== url.origin) return apiResponse("Forbidden", 403);
       const { payload, error } = await readBoundedJson(request, MAX_EVENT_BYTES);
       if (error) return error;
-      if (!payload || Array.isArray(payload) || Object.keys(payload).length !== 2 ||
-          !FEEDBACK_PAGES.has(payload.page) || !GUIDE_ACTIONS.has(payload.action)) {
+      if (!validResourceAction(payload)) {
         return apiResponse("Invalid action", 400);
       }
       // Forward only the validated action and route, never visitor headers or identifiers.
