@@ -58,10 +58,10 @@
     ].join(' · ');
     const installs = payload.installs || {};
     $('owner-installs').textContent = [
-      display(installs.pressed) + ' install-button presses',
+      display(installs.pressed) + ' install prompt requests',
       display(installs.accepted) + ' accepted prompts',
       display(installs.installed) + ' browser-confirmed installs',
-      display(installs.appleFirstOpen) + ' first Home Screen opens (iPhone and iPad)'
+      display(Number(installs.appleFirstOpen || 0) + Number(installs.firstOpen || 0)) + ' first opens as an app'
     ].join(' · ');
     signin.hidden = true;
     data.hidden = false;

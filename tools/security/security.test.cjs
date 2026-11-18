@@ -2,6 +2,7 @@ const { test, before, after } = require('node:test');
 const assert = require('node:assert/strict');
 const { readFile, readdir } = require('node:fs/promises');
 const path = require('node:path');
+const { runInNewContext } = require('node:vm');
 const { Miniflare } = require('miniflare');
 const root = path.resolve(__dirname, '../..');
 const origin = 'https://coping.tools';
@@ -22,7 +23,9 @@ before(async () => {
         const url = new URL(request.url);
         assetRequests.push({ url: request.url, headers: new Headers(request.headers) });
         if (request.headers.has('If-None-Match')) return new Response(null, { status: 304 });
-        const file = url.pathname.endsWith('/') ? `${url.pathname}index.html` : url.pathname;
+        // Mirror Cloudflare Assets' clean HTML URLs in the test binding.
+        const file = url.pathname.endsWith('/') ? `${url.pathname}index.html`
+          : path.extname(url.pathname) ? url.pathname : `${url.pathname}/index.html`;
         try {
           const data = await readFile(path.join(root, file));
           const type = file.endsWith('.html') ? 'text/html' : file.endsWith('.js') ? 'text/javascript' : 'text/css';
@@ -63,7 +66,8 @@ for (const route of ['/', '/body-wont-settle/', '/mind-wont-stop/', '/too-much-a
     for (const script of html.matchAll(/<script\b[^>]*>/gi)) assert.ok(script[0].includes(`nonce="${nonce}"`));
     assert.ok(!/\sstyle\s*=/i.test(html));
     const css = html.match(/href="(\/assets\/styles\.css\?[^\"]+)"/)[1];
-    assert.ok(css.includes('v=20261027-support-options'));
+    const sw = await readFile(path.join(root, 'sw.js'), 'utf8');
+    assert.ok(sw.includes(JSON.stringify(css)), css);
   });
 }
 
@@ -106,6 +110,39 @@ test('service worker keeps same-origin fetch access', async () => {
   assert.ok(sw.includes('/assets/styles.css?v=20261027-support-options'));
   assert.ok(sw.includes('if (request.method !== "GET") return null'));
 });
+test('first app opens use a shared event and preserve existing Apple counts', async () => {
+  const script = await readFile(path.join(root, 'assets/app-install.js'), 'utf8');
+  for (const [userAgent, appWindow, appleStandalone, previouslyCounted] of [
+    ['X11; Linux x86_64 Chrome', true, false, false],
+    ['Linux; Android Chrome', true, false, false],
+    ['iPhone Safari', false, true, false],
+    ['iPad Safari', false, true, true],
+    ['Macintosh Safari', true, false, false],
+    ['Windows Edg', true, false, false],
+    ['FreeBSD Firefox', false, false, false]
+  ]) {
+    const events = [];
+    const navigator = { userAgent, standalone: appleStandalone };
+    let flag = previouslyCounted ? 'sent' : undefined;
+    const launch = () => runInNewContext(script, {
+      window: { navigator, matchMedia: () => ({ matches: appWindow }), addEventListener() {} },
+      navigator,
+      document: { querySelector: () => null },
+      localStorage: { getItem: () => flag, setItem: (key, value) => { flag = value; } },
+      fetch: async (route, options) => {
+        assert.equal(route, '/api/install-event');
+        events.push(JSON.parse(options.body));
+        return { ok: true };
+      }
+    });
+    launch();
+    await new Promise(resolve => setImmediate(resolve));
+    launch();
+    await new Promise(resolve => setImmediate(resolve));
+    const expected = (appWindow || appleStandalone) && !previouslyCounted ? [{ event: 'firstOpen' }] : [];
+    assert.deepEqual(events, expected, userAgent);
+  }
+});
 test('event API rejects unsupported methods', async () => {
   const response = await fetchSite('/api/install-event');
   assert.equal(response.status, 405);
@@ -132,9 +169,11 @@ test('event API bounds streamed bodies even without Content-Length', async () =>
   assert.equal((await post(body)).status, 413);
 });
 test('valid events update only a local aggregate counter', async () => {
-  for (const event of ['pressed', 'accepted', 'installed']) assert.equal((await post(JSON.stringify({ event }))).status, 204);
+  for (const event of ['pressed', 'accepted', 'installed', 'appleFirstOpen', 'firstOpen', 'firstOpen']) {
+    assert.equal((await post(JSON.stringify({ event }))).status, 204);
+  }
   const response = await fetchSite('/api/install-stats', { headers: { Authorization: 'Bearer local-test-token' } });
-  assert.deepEqual(await response.json(), { pressed: 1, accepted: 1, installed: 1 });
+  assert.deepEqual(await response.json(), { pressed: 1, accepted: 1, installed: 1, appleFirstOpen: 1, firstOpen: 2 });
 });
 test('stats endpoint rejects missing or incorrect credentials', async () => {
   for (const headers of [{}, { Authorization: 'Bearer wrong' }]) {
@@ -232,6 +271,8 @@ test('owner cookie allows private aggregate reads but does not create visitor ev
   const cookie = await signedCookie();
   const first = await ownerTotals(cookie);
   assert.ok(first.feedback && first.guides && first.installs);
+  assert.equal(first.installs.appleFirstOpen, 1);
+  assert.equal(first.installs.firstOpen, 2);
   for (const page of ['/body-wont-settle/', '/mind-wont-stop/', '/too-much-at-once/', '/feel-low-or-shut-down/', '/something-has-happened/']) {
     assert.ok(first.guides.byPage[page]);
     assert.ok(first.feedback.byPage[page]);

@@ -6,23 +6,30 @@ const isStandalone=window.matchMedia("(display-mode: standalone)").matches||wind
 const isAppleMobile = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
   (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 const trackInstallEvent=event=>fetch("/api/install-event",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({event}),credentials:"same-origin",keepalive:true}).catch(()=>null);
-async function reportAppleFirstOpen() {
-  const key = "coping-tools-apple-first-open";
+// Keep the existing key so an app already counted on iPhone or iPad stays counted once.
+const FIRST_OPEN_KEY = "coping-tools-apple-first-open";
+let reportingFirstOpen = false;
+
+async function reportFirstOpen() {
+  if (reportingFirstOpen) return;
+  reportingFirstOpen = true;
   try {
-    if (localStorage.getItem(key) === "sent") return;
-    const response = await trackInstallEvent("appleFirstOpen");
-    if (response?.ok) localStorage.setItem(key, "sent");
+    if (localStorage.getItem(FIRST_OPEN_KEY) === "sent") return;
+    const response = await trackInstallEvent("firstOpen");
+    if (response?.ok) localStorage.setItem(FIRST_OPEN_KEY, "sent");
   } catch {
     // Storage can be unavailable. Leave the app usable.
+  } finally {
+    reportingFirstOpen = false;
   }
 }
 
-if (isAppleMobile && isStandalone) {
+if (isStandalone) {
   const report = () => {
     if (navigator.locks) {
-      navigator.locks.request("coping-tools-apple-first-open", reportAppleFirstOpen).catch(() => {});
+      navigator.locks.request(FIRST_OPEN_KEY, reportFirstOpen).catch(reportFirstOpen);
     } else {
-      void reportAppleFirstOpen();
+      void reportFirstOpen();
     }
   };
   report();
