@@ -413,6 +413,10 @@ async function handleRequest(request, env) {
       return Response.redirect(url.toString(), 301);
     }
 
+    if (url.pathname === "/practical-support") {
+      url.pathname = "/practical-support/";
+      return Response.redirect(url.toString(), 308);
+    }
 
     if (url.pathname === "/api/guide-event") {
       if (request.method !== "POST") return apiResponse("Method not allowed", 405, { Allow: "POST" });
