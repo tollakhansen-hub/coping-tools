@@ -37,6 +37,10 @@
   .tool-page .short-lines{margin:4pt 0!important}
   .tool-page .short-lines li{margin:1pt 0!important}
   .tool-page .urgent-note{display:block!important;break-inside:avoid-page!important;border-top:1px solid #bbb!important;padding-top:10pt!important;margin:18pt 0 0!important;color:#111!important;font-size:10pt!important}
+  /* Keep the Spanish low-mood guide's web address on page two on US Letter. */
+  .tool-page.print-compact-guide .tool-section > p{margin-bottom:4pt!important}
+  .tool-page.print-compact-guide .urgent-note{margin-top:8pt!important;padding-top:6pt!important}
+  .tool-page.print-compact-guide .print-evidence-note{margin-top:6pt!important;padding-top:4pt!important}
   a[href]:after{content:none!important}
   p,li{orphans:2;widows:2}
 }
