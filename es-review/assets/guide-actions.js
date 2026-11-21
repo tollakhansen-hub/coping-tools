@@ -20,7 +20,7 @@
         text: getText(el)
       })).filter(block => block.text)
     }));
-    const guide = {title:getText(main.querySelector('h1')),intro:getText(main.querySelector('.route-intro')),sections,urgent:getText(main.querySelector('.urgent-note')),path:window.location.pathname};
+    const guide = {title:getText(main.querySelector('h1')),intro:getText(main.querySelector('.route-intro')),sections,urgent:[...main.querySelectorAll('.urgent-note')].map(getText).filter(Boolean).join('\n\n'),path:window.location.pathname};
     if (!guide.title || !guide.urgent || !sections.length || !/^\/(?:es(?:-review)?\/)?[a-z0-9-]+\/$/.test(guide.path)) throw new Error('Guide content missing');
     return guide;
   };
