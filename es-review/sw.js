@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "coping-tools-fundaeps-es-review-";
-const CACHE = CACHE_PREFIX + "v2";
+const CACHE = CACHE_PREFIX + "v3";
 const CORE = [
   "/assets/fonts/atkinson-next-v7-italic-latin-ext.woff2",
   "/assets/fonts/atkinson-next-v7-italic-latin.woff2",

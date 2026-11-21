@@ -1,4 +1,4 @@
-const CACHE = "coping-tools-v50";
+const CACHE = "coping-tools-v51";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/practical-support/","/how-tools-are-chosen/","/update-history/","/privacy/"]);
 const CORE = [
   "/assets/styles.css?v=20261117-consistency",
@@ -25,7 +25,7 @@ const CORE = [
   "/assets/tool-feedback.js?v=20261028-persistent-votes",
   "/assets/resource-stats.js?v=20261118-resource-stats",
   "/assets/resource-copy.js?v=20261118-resource-stats",
-  "/assets/guide-actions.js?v=20261118-resource-stats",
+  "/assets/guide-actions.js?v=20261121-pdf-support",
   "/assets/guide-actions.css?v=20261107-copy-text",
   "/assets/care-additions.css?v=20261107-copy-text",
   "/assets/care-additions.css?v=20261107-action-icons",

@@ -19,7 +19,7 @@
 @media print{
   @page{margin:14mm}
   html,body{background:#fff!important;color:#111!important;font-family:Arial,Helvetica,sans-serif!important;font-size:10pt!important;line-height:1.4!important}
-  .site-head,.guide-nav-row,.related,.trust,.tool-feedback,footer,.skip-link{display:none!important}
+  .review-banner,.site-head,.guide-nav-row,.related,.trust,.tool-feedback,footer,.skip-link{display:none!important}
   .print-evidence-note{display:block!important;margin:12pt 0 0!important;padding-top:6pt!important;border-top:1px solid #bbb!important;color:#444!important;font-size:8.5pt!important}
   main,.tool-page main{padding:0!important;margin:0!important}
   .shell{width:auto!important;max-width:none!important;margin:0!important}
