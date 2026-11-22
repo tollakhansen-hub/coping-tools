@@ -603,8 +603,8 @@ body.home-page .home-explainer p{
   .tool-page .optional-plan strong { font-size: .94em; }
 }
 
-.language-switch{display:flex;gap:.4rem;align-items:center;justify-content:flex-end;margin:.4rem 0;font-size:.875rem}
-.language-switch a{padding:.25rem .15rem;text-underline-offset:.16em}
-.language-switch a[aria-current="page"]{font-weight:700;text-decoration:none}
+.language-switch{display:flex;gap:.3rem;align-items:center;justify-content:flex-end;font-size:.75rem}
+.language-switch a{display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;text-underline-offset:.16em}
+.language-switch [aria-current="page"]{font-weight:650}
 
 .review-banner{background:#f2eadc;color:#263b34;text-align:center;padding:.55rem 1rem;font-size:.88rem;border-bottom:1px solid #d9cbb5}
