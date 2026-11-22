@@ -1,7 +1,7 @@
 const { defineConfig, devices } = require('@playwright/test');
 module.exports = defineConfig({
   testDir: '.',
-  testMatch: 'compat.spec.cjs',
+  testMatch: ['compat.spec.cjs', 'print-pagination.spec.cjs'],
   timeout: 30000,
   globalTimeout: 12 * 60 * 1000,
   retries: 0,
