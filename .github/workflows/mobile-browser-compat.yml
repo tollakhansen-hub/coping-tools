@@ -1,0 +1,32 @@
+name: Mobile browser compatibility (read-only)
+on:
+  push:
+    branches: [test/safari-android-browser-compat]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright test runner
+        run: npm install --no-save --no-package-lock @playwright/test@1.58.2
+      - name: Install browsers
+        run: npx playwright install --with-deps chromium webkit
+      - name: Test published website without making changes
+        run: npx playwright test --config=tests/mobile/playwright.config.cjs
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-browser-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
