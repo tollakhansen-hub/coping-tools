@@ -18,6 +18,8 @@ jobs:
         run: npm install --no-save --no-package-lock @playwright/test@1.58.2
       - name: Install browsers
         run: npx playwright install --with-deps chromium webkit
+      - name: Install PDF inspection utilities
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
       - name: Test published website without making changes
         run: npx playwright test --config=tests/mobile/playwright.config.cjs
       - name: Upload results
