@@ -1,5 +1,6 @@
 const CACHE_PREFIX = "coping-tools-fundaeps-es-review-";
-const CACHE = CACHE_PREFIX + "v3";
+const CACHE = CACHE_PREFIX + "v4";
+const OFFLINE_PATH = "/es-review/offline";
 const CORE = [
   "/assets/fonts/atkinson-next-v7-italic-latin-ext.woff2",
   "/assets/fonts/atkinson-next-v7-italic-latin.woff2",
@@ -60,7 +61,7 @@ const CORE = [
   "/es-review/manifest.webmanifest",
   "/es-review/mind-wont-stop/",
   "/es-review/not-sure/",
-  "/es-review/offline.html",
+  OFFLINE_PATH,
   "/es-review/pdf/es-practical-support-all-five.pdf",
   "/es-review/pdf/es-practical-support-section-1.pdf",
   "/es-review/pdf/es-practical-support-section-2.pdf",
@@ -123,7 +124,7 @@ self.addEventListener("fetch", event => {
       const cached = await cache.match(url.pathname);
       if (cached) return cached;
       if (request.mode === "navigate") {
-        const offline = await cache.match("/es-review/offline.html");
+        const offline = await cache.match(OFFLINE_PATH);
         if (offline) return offline;
       }
       return Response.error();

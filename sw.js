@@ -1,4 +1,5 @@
-const CACHE = "coping-tools-v51";
+const CACHE = "coping-tools-v52";
+const OFFLINE_PATH = "/offline";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/practical-support/","/how-tools-are-chosen/","/update-history/","/privacy/"]);
 const CORE = [
   "/assets/styles.css?v=20261117-consistency",
@@ -7,7 +8,7 @@ const CORE = [
   "/assets/pebble-icon-192-20261006.png",
   "/assets/pebble-icon-512-20261006.png",
   "/favicon.ico",
-  "/offline.html",
+  OFFLINE_PATH,
   "/",
   "/body-wont-settle/",
   "/mind-wont-stop/",
@@ -126,7 +127,7 @@ self.addEventListener("fetch", event => {
       const hit = await cache.match(key);
       if (hit) return hit;
       if (event.request.mode === "navigate" && PAGES.has(key)) {
-        const offline = await cache.match("/offline.html");
+        const offline = await cache.match(OFFLINE_PATH);
         if (offline) {
           return new Response(offline.body, {
             status: 503,
