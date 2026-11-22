@@ -605,3 +605,6 @@ body.home-page .home-explainer p{
   .tool-page .guide-nav-row { margin-bottom: 16px; }
   .tool-page .optional-plan strong { font-size: .94em; }
 }
+
+/* Keep the Spanish wordmark aligned with the top of the taller navigation block. */
+html[lang="es"] .head-row{align-items:flex-start}
