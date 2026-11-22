@@ -8,4 +8,6 @@ English is the source edition. Ship the corresponding Spanish change in the same
 
 Keep English-facing copy in English, including the homepage footer link to the Spanish edition. Keep the compact ES · EN control on Spanish pages, with EN opening the corresponding English page.
 
+Record language-only wording edits in the update history for the edition they affect. Record substantive changes that affect both editions in both update histories.
+
 <!-- deployment-trigger: 2026-09-29T22:57+01:00 -->
