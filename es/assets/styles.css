@@ -653,7 +653,7 @@ body.home-page .home-explainer p{
   text-decoration: underline;
 }
 @media print {
-  .language-switch { display: none; }
+  .language-switch, [data-footer-language-switch] { display: none; }
 }
 
 .review-banner{background:#f2eadc;color:#263b34;text-align:center;padding:.55rem 1rem;font-size:.88rem;border-bottom:1px solid #d9cbb5}

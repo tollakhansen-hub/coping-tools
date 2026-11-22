@@ -1,8 +1,10 @@
-const CACHE = "coping-tools-v52";
+const CACHE = "coping-tools-v53";
 const OFFLINE_PATH = "/offline";
 const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/practical-support/","/how-tools-are-chosen/","/update-history/","/privacy/","/share/"]);
 const CORE = [
   "/assets/styles.css?v=20261117-consistency",
+  "/assets/styles.css?v=20261122-spanish-gateway",
+  "/assets/language-gateway.js",
   "/assets/pebble-icon-96-20261006.png",
   "/assets/pebble-icon-180-20261006.png",
   "/assets/pebble-icon-192-20261006.png",

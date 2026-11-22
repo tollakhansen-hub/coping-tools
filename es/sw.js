@@ -1,7 +1,8 @@
 const CACHE_PREFIX = "coping-tools-es-";
-const CACHE = CACHE_PREFIX + "v6";
+const CACHE = CACHE_PREFIX + "v7";
 const OFFLINE_PATH = "/es/offline";
 const CORE = [
+  "/assets/language-gateway.js",
   "/assets/fonts/atkinson-next-v7-italic-latin-ext.woff2",
   "/assets/fonts/atkinson-next-v7-italic-latin.woff2",
   "/assets/fonts/atkinson-next-v7-normal-latin-ext.woff2",

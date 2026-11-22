@@ -134,6 +134,9 @@ h3{font-size:1.08rem;margin:1.4rem 0 .3rem;font-weight:720}
 p{margin:.65rem 0 1rem;font-size:1.08rem}
 .lede{font-size:1.12rem;max-width:36rem;color:#2d342f;margin:.15rem 0 .45rem}
 .quiet{color:var(--muted)}
+.spanish-gateway{display:inline-flex;align-items:center;gap:.28em;min-height:24px;margin:.32rem 0 0;font-size:.86rem;font-weight:560;text-underline-offset:.18em}
+.spanish-gateway[hidden]{display:none}
+@media print{.spanish-gateway,[data-footer-language-switch]{display:none}}
 .routes{margin:22px 0 30px;border-top:1px solid var(--line)}
 .route{display:grid;grid-template-columns:36px 1fr 22px;gap:12px;align-items:center;padding:19px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;min-height:88px}
 .route:hover .route-title{text-decoration:underline;text-decoration-thickness:.08em;text-underline-offset:.17em}

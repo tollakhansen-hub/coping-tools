@@ -6,7 +6,7 @@ Practical coping tools for difficult moments.
 
 English is the source edition. Ship the corresponding Spanish change in the same release whenever a public English page, guide, evidence note, feature, downloadable resource, or site behavior changes. Check the matching routes and outputs in both languages before publishing.
 
-Keep English-facing copy in English, including the homepage footer link to the Spanish edition. Keep the compact ES · EN control on Spanish pages, with EN opening the corresponding English page.
+Keep English-facing copy in English. The English homepage offers a small «En español» link when Spanish is the browser’s first preferred language. Keep the compact ES · EN control on Spanish pages, with EN opening the corresponding English page. The optional footer language switch is enabled per browser with `/?language-switch=1` and disabled with `/?language-switch=0`.
 
 Record language-only wording edits in the update history for the edition they affect. Record substantive changes that affect both editions in both update histories.
 
