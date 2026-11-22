@@ -40,8 +40,8 @@ def main():
  from datetime import date
  date.fromisoformat(args.date)
  spanish=args.language=='es'
- site_root=ROOT/'es-review' if spanish else ROOT
- url='https://coping.tools/'+('es-review/' if spanish else '')+'practical-support/'
+ site_root=ROOT/'es' if spanish else ROOT
+ url='https://coping.tools/'+('es/' if spanish else '')+'practical-support/'
  date_label='Actualizado' if spanish else 'Updated'
  filename_prefix='es-' if spanish else ''
  page=BeautifulSoup((site_root/'practical-support/index.html').read_text(),'html.parser')
