@@ -1,5 +1,6 @@
-const CACHE = "coping-tools-v51";
-const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/practical-support/","/how-tools-are-chosen/","/update-history/","/privacy/"]);
+const CACHE = "coping-tools-v52";
+const OFFLINE_PATH = "/offline";
+const PAGES = new Set(["/","/body-wont-settle/","/mind-wont-stop/","/too-much-at-once/","/feel-low-or-shut-down/","/something-has-happened/","/not-sure/","/about/","/for-organisations/","/practical-support/","/how-tools-are-chosen/","/update-history/","/privacy/","/share/"]);
 const CORE = [
   "/assets/styles.css?v=20261117-consistency",
   "/assets/pebble-icon-96-20261006.png",
@@ -7,7 +8,7 @@ const CORE = [
   "/assets/pebble-icon-192-20261006.png",
   "/assets/pebble-icon-512-20261006.png",
   "/favicon.ico",
-  "/offline.html",
+  OFFLINE_PATH,
   "/",
   "/body-wont-settle/",
   "/mind-wont-stop/",
@@ -20,11 +21,31 @@ const CORE = [
   "/practical-support/",
   "/how-tools-are-chosen/",
   "/update-history/","/privacy/",
+  "/share/",
   "/assets/app-install.js?v=20261118-first-open",
   "/assets/evidence-expand.js",
   "/assets/tool-feedback.js?v=20261028-persistent-votes",
   "/assets/resource-stats.js?v=20261118-resource-stats",
   "/assets/resource-copy.js?v=20261118-resource-stats",
+  "/assets/share-links.js?v=20261118-resource-stats",
+  "/assets/qr/all-five-guides.svg",
+  "/assets/qr/body-wont-settle.svg",
+  "/assets/qr/feel-low-or-shut-down.svg",
+  "/assets/qr/mind-wont-stop.svg",
+  "/assets/qr/print/all-five-guides.png",
+  "/assets/qr/print/all-five-guides.svg",
+  "/assets/qr/print/body-wont-settle.png",
+  "/assets/qr/print/body-wont-settle.svg",
+  "/assets/qr/print/feel-low-or-shut-down.png",
+  "/assets/qr/print/feel-low-or-shut-down.svg",
+  "/assets/qr/print/mind-wont-stop.png",
+  "/assets/qr/print/mind-wont-stop.svg",
+  "/assets/qr/print/something-has-happened.png",
+  "/assets/qr/print/something-has-happened.svg",
+  "/assets/qr/print/too-much-at-once.png",
+  "/assets/qr/print/too-much-at-once.svg",
+  "/assets/qr/something-has-happened.svg",
+  "/assets/qr/too-much-at-once.svg",
   "/assets/guide-actions.js?v=20261121-pdf-support",
   "/assets/guide-actions.css?v=20261107-copy-text",
   "/assets/care-additions.css?v=20261107-copy-text",
@@ -126,7 +147,7 @@ self.addEventListener("fetch", event => {
       const hit = await cache.match(key);
       if (hit) return hit;
       if (event.request.mode === "navigate" && PAGES.has(key)) {
-        const offline = await cache.match("/offline.html");
+        const offline = await cache.match(OFFLINE_PATH);
         if (offline) {
           return new Response(offline.body, {
             status: 503,
