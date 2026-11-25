@@ -351,6 +351,8 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 
 /* Quiet institutional doorway — 14 October 2026 */
 .head-row{display:flex;justify-content:space-between;align-items:center;gap:1.1rem}
+/* Align the homepage wordmark with the top of the healthcare page header. */
+body.home-page .head-row{align-items:flex-start}
 .organisation-link{display:inline-block;font-size:.9rem;font-weight:650;line-height:1.4;white-space:nowrap;text-decoration-thickness:.06em;text-underline-offset:.2em}
 .organisation-link:hover{text-decoration-thickness:.11em}
 .org-intro{max-width:39rem}
